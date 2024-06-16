@@ -11,6 +11,7 @@ import Navigaton from "../components/Navigation";
 import Header from "../components/Header";
 import { MdAddCircle } from "react-icons/md";
 import Footer from "../components/Footer";
+import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const data = [
@@ -53,40 +54,47 @@ const Dashboard = () => {
   ];
   return (
     <>
-      <Box>
-        <Navigaton />
-        <Header pagetitle={"NIFODA Dashboard"} />
-        <Box bgColor={"ngPWhiteoff"} minHeight={"100vh"} py={"20px"}>
-          <Box paddingX={{ base: "20px", md: "50px" }}>
-            <Grid
-              templateColumns={{ md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }}
-              gap={10}
-            >
-              {data.map((item, index) => (
-                <Link
-                  href="#"
-                  key={index}
-                  w="100%"
-                  h={"100%"}
-                  rounded={"10px"}
-                  borderWidth={1}
-                  borderColor={"gray.200"}
-                  boxShadow={"md"}
-                  _hover={{
-                    textDecoration: "none",
-                    boxShadow: "lg",
-                    bg: "ngHoverCard",
-                  }}
-                >
-                  <GridItem>
+      <Navigaton />
+      <Header pagetitle={"NIFODA Dashboard"} />
+      <Box
+        as={motion.div}
+        bgColor={"gray.300"}
+        minHeight={"100vh"}
+        py={"20px"}
+        width={"100%"}
+      >
+        <Box paddingX={{ base: "20px", md: "50px" }} marginLeft={"52px"}>
+          <Grid
+            templateColumns={{ md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }}
+            gap={10}
+          >
+            {data.map((item, index) => (
+              <Box
+                key={index}
+                w="100%"
+                rounded={"10px"}
+                borderWidth={1}
+                borderColor={"gray.200"}
+                bg={"gray.200"}
+                boxShadow={"md"}
+                _hover={{
+                  textDecoration: "none",
+                  boxShadow: "lg",
+                  bg: "ngHoverCard",
+                }}
+              >
+                <Link href="#" _hover={{ textDecoration: "none" }}>
+                  <GridItem minH={"100%"}>
                     <Box p={"20px"}>
                       <Text fontWeight={900} fontSize={"25px"}>
                         {item.title}
                       </Text>
                       <Divider my={"20px"} />
-                      <Text fontSize={"12px"} h={"100%"}>
-                        {item.description}
-                      </Text>
+                      <Box minH={"150px"}>
+                        <Text fontSize={"12px"} h={"100%"}>
+                          {item.description}
+                        </Text>
+                      </Box>
                       <Box bottom={0}>
                         <Divider my={"20px"} />
                         <Grid templateColumns="repeat(2, 1fr)">
@@ -115,17 +123,17 @@ const Dashboard = () => {
                     </Box>
                   </GridItem>
                 </Link>
-              ))}
-              {/* <GridItem w="100%" h="10" bg="white">
+              </Box>
+            ))}
+            {/* <GridItem w="100%" h="10" bg="white">
                 <Box>1</Box>
               </GridItem>
               <GridItem w="100%" h="10" bg="white" />
               <GridItem w="100%" h="10" bg="white" /> */}
-            </Grid>
-            <Box py={"50px"}>
-              <Divider />
-              <Footer />
-            </Box>
+          </Grid>
+          <Box py={"50px"}>
+            <Divider />
+            <Footer />
           </Box>
         </Box>
       </Box>
