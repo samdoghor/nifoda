@@ -5,6 +5,7 @@ import {
   Link,
   Text,
   Image,
+  Tooltip,
   // Icon,
   // IconButton,
   // Center,
@@ -39,6 +40,7 @@ const Navigaton = () => {
         bgColor={"ngDarkblue"}
         minHeight={"100vh"}
         position={"fixed"}
+        width={"52px"}
         left={0}
         top={0}
         animate={open ? "open" : "closed"}
@@ -47,6 +49,9 @@ const Navigaton = () => {
         transition="0.3s linear"
         overflow={"hidden"}
         zIndex={999}
+        boxShadow={
+          "0 4px 6px rgba(255, 255, 255, 0.1), 0 1px 3px rgba(255, 255, 255, 0.08)"
+        }
       >
         <Flex p="4" justify={"start"}>
           <VStack justify={"start"} alignItems={"start"}>
@@ -74,7 +79,7 @@ const Navigaton = () => {
                     />
                   )}
                 </Box>
-                <Text color={"white"} paddingLeft={"15px"} fontWeight={900}>
+                <Text color={"white"} paddingLeft={"20px"} fontWeight={700}>
                   Menu
                 </Text>
               </Flex>
@@ -93,130 +98,192 @@ const Navigaton = () => {
                     fallbackSrc="https://via.placeholder.com/150"
                   />
                 </Box>
-                <Text color={"white"} paddingLeft={"15px"} fontWeight={900}>
+                <Text color={"white"} paddingLeft={"20px"} fontWeight={700}>
                   NIFODA
                 </Text>
               </Flex>
             </Link>
+
             <Box mt={"20px"}>
-              <Box py={"15px"}>
-                <Link href="/dashboard" title="Dashboard">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <MdSpaceDashboard
+              <Tooltip label={"Dashboard"} bg={"white"} color={"ngDarkgreen"}>
+                <Box py={"15px"}>
+                  <Link href="/dashboard">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <MdSpaceDashboard
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Dashboard
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Dashboard
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
 
-              <Box py={"15px"}>
-                <Link href="#" title="Contributors">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <GiPodiumWinner
+              <Tooltip
+                label={"Contributors"}
+                bg={"white"}
+                color={"ngDarkgreen"}
+              >
+                <Box py={"15px"}>
+                  <Link href="#">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <GiPodiumWinner
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Contributors
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Contributors
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
 
-              <Box py={"15px"}>
-                <Link href="#" title="Notifications">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <FaBell
+              <Tooltip
+                label={"Notifications"}
+                bg={"white"}
+                color={"ngDarkgreen"}
+              >
+                <Box py={"15px"}>
+                  <Link href="#">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <FaBell
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Notifications
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Notifications
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
 
-              <Box py={"15px"}>
-                <Link href="#" title="Issues/Features">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <SiMinutemailer
+              <Tooltip
+                label={"Issues/Features"}
+                bg={"white"}
+                color={"ngDarkgreen"}
+              >
+                <Box py={"15px"}>
+                  <Link href="#">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <SiMinutemailer
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Issues/Features
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Issues/Features
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
 
-              <Box py={"15px"}>
-                <Link href="#" title="Users">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <FaUsers
+              <Tooltip label={"Users"} bg={"white"} color={"ngDarkgreen"}>
+                <Box py={"15px"}>
+                  <Link href="#">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <FaUsers
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Users
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Users
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
 
-              <Box py={"15px"}>
-                <Link href="#" title="Account">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <RiAccountPinCircleFill
+              <Tooltip label={"Account"} bg={"white"} color={"ngDarkgreen"}>
+                <Box py={"15px"}>
+                  <Link href="#" title="">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <RiAccountPinCircleFill
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Account
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Account
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
 
-              <Box py={"15px"}>
-                <Link href="#" title="Logout">
-                  <Flex justify={"start"} alignItems={"center"}>
-                    <Box>
-                      <RiLogoutBoxRFill
+              <Tooltip label={"Logout"} bg={"white"} color={"ngDarkgreen"}>
+                <Box py={"15px"}>
+                  <Link href="#" title="">
+                    <Flex justify={"start"} alignItems={"center"}>
+                      <Box>
+                        <RiLogoutBoxRFill
+                          color={"white"}
+                          fontWeight={400}
+                          fontSize={"20px"}
+                        />
+                      </Box>
+                      <Text
                         color={"white"}
+                        paddingLeft={"20px"}
                         fontWeight={400}
-                        fontSize={"25px"}
-                      />
-                    </Box>
-                    <Text color={"white"} paddingLeft={"15px"} fontWeight={400}>
-                      Logout
-                    </Text>
-                  </Flex>
-                </Link>
-              </Box>
+                        fontSize={"15px"}
+                      >
+                        Logout
+                      </Text>
+                    </Flex>
+                  </Link>
+                </Box>
+              </Tooltip>
             </Box>
 
             {/* <Link href="/dashboard">
