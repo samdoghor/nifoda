@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask-restful = "*"
+psycopg2 = "*"
+python-dotenv = "*"
+mysql-connector-python = "*"
+flask-migrate = "*"
+flask = "*"
+pyyaml = "*"
+flake8 = "*"
+flask-sqlalchemy = "*"
+sqlalchemy = "*"
+autopep8 = "*"
+flask-cors = "*"
+flask-talisman = "*"
+pyjwt = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.11"
