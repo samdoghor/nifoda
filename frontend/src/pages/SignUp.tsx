@@ -36,20 +36,26 @@ const SignUp = () => {
                 md: "repeat(2, 1fr)",
               }}
             >
-              <Box p={"1.5rem"}>
+              <Box
+                p={"1.5rem"}
+                bg={"ngDarkerblue"}
+                rounded={"2xl"}
+                width={"100%"}
+                padding={"12"}
+              >
                 <Text
                   fontSize={"2.4rem"}
-                  color={"ngDarkblue"}
+                  color={"white"}
                   fontWeight={"900"}
                   fontFamily={"overpass"}
                   display={"flex"}
                 >
-                  Sign Up.
+                  Sign Up
                 </Text>
 
                 <Text
-                  textColor={"black"}
-                  fontSize={"1.2rem"}
+                  textColor={"white"}
+                  fontSize={"1rem"}
                   pt={"1rem"}
                   lineHeight={"2rem"}
                   overflow={"hidden"}
@@ -59,7 +65,12 @@ const SignUp = () => {
                   (NIFODA).
                 </Text>
                 <FormControl>
-                  <Stack spacing={2} pt={"2rem"} overflow={"hidden"}>
+                  <Stack
+                    spacing={2}
+                    pt={"2rem"}
+                    overflow={"hidden"}
+                    textColor={"white"}
+                  >
                     <Text fontWeight={600} fontSize={"1.2rem"} pt={"1.2rem"}>
                       First name
                     </Text>
@@ -93,20 +104,23 @@ const SignUp = () => {
                         type={show ? "text" : "password"}
                         placeholder="Enter Password"
                       />
-                      <InputRightElement width="4.5rem">
+                      <InputRightElement width="3.5rem">
                         <Button
                           size="md"
                           onClick={handleClick}
                           fontSize={"2rem"}
-                          backgroundColor={"ngDarkblue"}
+                          backgroundColor={"transparent"}
                           textColor={"white"}
                           roundedRight={"md"}
                           _hover={{
-                            backgroundColor: "ngDarkblue",
                             textColor: "gray.300",
                           }}
                         >
-                          {show ? <PiEyeBold /> : <PiEyeClosedBold />}
+                          {show ? (
+                            <PiEyeBold fontSize={"2rem"} />
+                          ) : (
+                            <PiEyeClosedBold fontSize={"2rem"} />
+                          )}
                         </Button>
                       </InputRightElement>
                     </InputGroup>
@@ -141,14 +155,13 @@ const SignUp = () => {
                 </FormControl>
               </Box>
               <Box
-                backgroundImage="url('/img/nigeria_flag_2.png')"
-                backgroundPosition="center"
+                backgroundImage="url('/img/nigeria-flag.gif')"
                 backgroundRepeat="no-repeat"
-                backgroundSize={"cover"}
-                textAlign={"left"}
-                fontSize={"1.1rem"}
+                backgroundSize={"100%"}
                 pt={"1rem"}
                 display={{ base: "none", md: "block" }}
+                ms={"-5px"}
+                zIndex={-1}
               ></Box>
             </Box>
           </Box>

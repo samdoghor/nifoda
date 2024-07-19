@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 const App = () => {
   return (
     <>
-      <Box>
+      <Box zIndex={1000}>
         <Navigation />
       </Box>
       <Router />
