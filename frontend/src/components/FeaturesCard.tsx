@@ -95,6 +95,12 @@ const FeaturesCard = () => {
                   label={features.tooltip}
                   bg={"white"}
                   color={"ngDarkgreen"}
+                  placement="auto"
+                  openDelay={500}
+                  rounded={".5rem"}
+                  boxShadow="2xl"
+                  key={index}
+                  fontSize={"13px"}
                 >
                   <Box
                     viewport={{ once: true }}
@@ -103,7 +109,6 @@ const FeaturesCard = () => {
                     p={"1.8rem"}
                     rounded={"1rem"}
                     boxShadow="2xl"
-                    key={index}
                     overflow={"hidden"}
                     variants={textVariant2}
                     initial="initial"
