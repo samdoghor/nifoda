@@ -54,7 +54,7 @@ export const Footerlinks = [
             {
                 id: 4,
                 label: 'Email',
-                url: 'mailto:talkto@samdoghor.com',
+                url: 'mailto:dev@samdoghor.tech',
                 external: true,
             },
         ]

@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { Home, About, Privacy, Terms, NotFound, SignUp } from "./Index";
+import useScrollToHash from "./useScrollToHash";
 
 const Router = () => {
+  useScrollToHash();
   return (
     <>
       <Routes>

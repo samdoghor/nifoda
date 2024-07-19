@@ -7,7 +7,7 @@ const Navigation = () => {
   return (
     <>
       <Box
-        bg={"gray.100"}
+        bg={"ngDarkblue"}
         opacity={".97"}
         px={{ base: "1rem", lg: "5rem" }}
         textAlign={"center"}
@@ -22,7 +22,7 @@ const Navigation = () => {
                 className="self-center whitespace-nowrap"
                 fontWeight={"900"}
               >
-                <chakra.span color={"green.800"} fontSize={"2rem"}>
+                <chakra.span color={"white"} fontSize={"2rem"}>
                   NIFODA
                 </chakra.span>
               </chakra.span>

@@ -35,7 +35,7 @@ const Footer = () => {
 
   return (
     <>
-      <Box maxW="100vw" mx="auto" bg="gray.100" pb={{ lg: "1rem" }}>
+      <Box maxW="100vw" mx="auto" bg="ngDarkblue" pb={{ lg: "1rem" }}>
         {/* Section One */}
         <Box
           px={{ base: "1rem", lg: "8rem" }}
@@ -59,11 +59,11 @@ const Footer = () => {
                 fontSize={"1.2rem"}
                 fontWeight={700}
                 pb={"1.2rem"}
-                color={"ngDarkblue"}
+                color={"white"}
               >
                 About Project
               </Text>
-              <Text fontSize={"1rem"} pb={".8rem"}>
+              <Text fontSize={"1rem"} pb={".8rem"} color={"white"}>
                 <chakra.p pb={".6rem"} fontFamily={"heebo"}>
                   <Text>
                     The Nigerian Food Database API (NIFODA) is the brainchild of
@@ -79,11 +79,11 @@ const Footer = () => {
                   fontSize={"1.2rem"}
                   fontWeight={700}
                   pb={"1.2rem"}
-                  color={"ngDarkblue"}
+                  color={"white"}
                 >
                   {section.title}
                 </Text>
-                <Text fontSize={"1rem"} pb={".8rem"}>
+                <Text fontSize={"1rem"} pb={".8rem"} color={"white"}>
                   {section.link.map((link, index) => (
                     <chakra.p
                       key={index}
@@ -128,7 +128,7 @@ const Footer = () => {
               whileInView="animate"
             />
             <Text
-              color={"ngDarkblue"}
+              color={"white"}
               pl={"1.5rem"}
               fontWeight={500}
               viewport={{ once: true }}
@@ -139,10 +139,10 @@ const Footer = () => {
             >
               Proudly developed by
               <Link
-                href="https://www.samdoghor.com"
+                href="https://www.samdoghor.tech"
                 pl={".4rem"}
                 fontWeight={900}
-                color={"ngDarkblue"}
+                color={"white"}
                 isExternal
               >
                 Samuel, Doghor Destiny <ExternalLinkIcon mx="2px" />
