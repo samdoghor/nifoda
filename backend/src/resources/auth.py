@@ -11,9 +11,14 @@ from flask.json import jsonify
 from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
-from models import EditorModel
-from utils import (DataNotFound, Forbidden,
-                   InternalServerError, parse_params)
+try:
+    from ..models import EditorModel
+    from ..utils import (DataNotFound, Forbidden, InternalServerError,
+                         parse_params)
+except ImportError:
+    from models import EditorModel
+    from utils import (DataNotFound, Forbidden, InternalServerError,
+                       parse_params)
 
 
 class AuthResource(Resource):
