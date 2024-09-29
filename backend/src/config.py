@@ -28,11 +28,6 @@ POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 POSTGRES_DATABASE = os.getenv('POSTGRES_DATABASE')
 
-# enable debug mode
-
-
-DEBUG = True
-
 # database (PostgreSQl)
 
 SQLALCHEMY_DATABASE_URI = f'postgresql://{dbUsername}:{dbPassword}@{dbHost}:{dbPort}/{dbName}'  # noqa
@@ -59,4 +54,4 @@ ALGORITHM = os.getenv("ALGORITHM")
 
 # debugging
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG')

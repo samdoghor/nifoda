@@ -37,13 +37,14 @@ for food in foods:
 
 # imports
 
-from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import UUID
 
 from . import db
 from .abc import BaseModel, MetaBaseModel
+
+from utils import NetworkTime
 
 # model
 
@@ -61,8 +62,8 @@ class FoodModel(db.Model, BaseModel, metaclass=MetaBaseModel):
 
     is_approved = db.Column(db.Boolean, default=False, nullable=False)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=NetworkTime.network_time())
+    updated_at = db.Column(db.DateTime, onupdate=NetworkTime.network_time())
 
     # foreign keys
     category_id = db.Column(UUID(as_uuid=True), db.ForeignKey(
