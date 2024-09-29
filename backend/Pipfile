@@ -18,6 +18,8 @@ autopep8 = "*"
 flask-cors = "*"
 flask-talisman = "*"
 pyjwt = "*"
+gunicorn = "*"
+ntplib = "*"
 
 [dev-packages]
 

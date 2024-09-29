@@ -34,11 +34,10 @@ for editor in editors:
 from flask import jsonify
 from flask_restful import Resource
 from flask_restful.reqparse import Argument
-from sqlalchemy.exc import IntegrityError
-
 from models import EditorModel
+from sqlalchemy.exc import IntegrityError
 from utils import (Conflict, DataNotFound, Forbidden, InternalServerError,
-                   parse_params, KeyManager)
+                   KeyManager, parse_params)
 
 # resources
 
@@ -63,7 +62,7 @@ class EditorResource(Resource):
                  help="The email address of the editor."),
         Argument("password", location="json", required=True,
                  help="The password of the editor."),
-        Argument("is_admin", location="json", type=bool, required=True,
+        Argument("is_admin", location="json", type=bool,
                  help="Determine if the personel is an admin."),
         Argument("is_developer", location="json", type=bool, required=True,
                  help="Determine if the personel is a developer."),
@@ -84,9 +83,9 @@ class EditorResource(Resource):
             if editor:
                 return jsonify({
                     "code": 409,
-                    'code status': 'Duplicate email',
+                    'code_status': 'Duplicate email',
                     "message": f"{email_address}, already has an account."
-                })
+                }), 409
 
             # Generate API key pair
             api_key, hashed_secret_key, salt = KeyManager.generate_api_key_pair()  # noqa
@@ -109,24 +108,26 @@ class EditorResource(Resource):
             return jsonify({
                 'code': 200,
                 'code_status': 'Successful',
+                'message': f'Account created successfully for {
+                    new_editor.email_address}',
                 'data': {
                     'id': new_editor.id,
-                    'first name': new_editor.first_name,
-                    'last name': new_editor.last_name,
-                    'email address': new_editor.email_address,
-                    'is admin': new_editor.is_admin,
-                    'is developer': new_editor.is_developer,
-                    'api key': new_editor.api_key,
-                    'secret key': new_editor.secret_key
+                    'first_name': new_editor.first_name,
+                    'last_name': new_editor.last_name,
+                    'email_address': new_editor.email_address,
+                    'is_admin': new_editor.is_admin,
+                    'is_developer': new_editor.is_developer,
+                    'api_key': new_editor.api_key,
+                    'secret_key': new_editor.secret_key,
                 }
             }), 200  # noqa
 
         except IntegrityError:
-            return {
-                'code': 409,
-                'type': 'Data Integrity',
-                'message': f"{email_address}, already exist."
-            }
+            return jsonify({
+                "code": 409,
+                'code_status': 'Data Integrity',
+                "message": f"{email_address}, already has an account."
+            }), 409
 
         except Forbidden as e:
             return {
@@ -135,12 +136,12 @@ class EditorResource(Resource):
                 'Message': e.message
             }
 
-        except Conflict as e:
-            return {
-                'Code': e.code,
-                'Type': e.type,
-                'Message': e.message
-            }
+        except Conflict:
+            return jsonify({
+                "code": 409,
+                'code_status': 'Conflicting email',
+                "message": f"{email_address}, already has an account."
+            }), 409
 
         except InternalServerError as e:
             return {
@@ -159,7 +160,7 @@ class EditorResource(Resource):
             if not editors:
                 return {
                     'code': 404,
-                    'code status': 'Client errors',
+                    'code_status': 'Client errors',
                     'message': 'No editor was not found'
                 }, 404
 
@@ -168,18 +169,18 @@ class EditorResource(Resource):
             for editor in editors:
                 data.append({
                     'id': editor.id,
-                    'first name': editor.first_name,
-                    'last name': editor.last_name,
-                    'email address': editor.email_address,
-                    'is admin': editor.is_admin,
-                    'is developer': editor.is_developer,
-                    'api key': editor.api_key,
-                    'secret key': editor.secret_key
+                    'first_name': editor.first_name,
+                    'last_name': editor.last_name,
+                    'email_address': editor.email_address,
+                    'is_admin': editor.is_admin,
+                    'is_developer': editor.is_developer,
+                    'api_key': editor.api_key,
+                    'secret_key': editor.secret_key,
                 })
 
             return {
                 'code': 200,
-                'code status': 'Successful',
+                'code_status': 'Successful',
                 'data': data
             }, 200
 
@@ -207,24 +208,24 @@ class EditorResource(Resource):
             if not editor:
                 return {
                     'code': 404,
-                    'code status': 'Client errors',
+                    'code_status': 'Client errors',
                     'message': f'The editor with id {id} was not found'
                 }, 404
 
             data = {
                 'id': editor.id,
-                'first name': editor.first_name,
-                'last name': editor.last_name,
-                'email address': editor.email_address,
-                'is admin': editor.is_admin,
-                'is developer': editor.is_developer,
-                'api key': editor.api_key,
-                'secret key': editor.secret_key
+                'first_name': editor.first_name,
+                'last_name': editor.last_name,
+                'email_address': editor.email_address,
+                'is_admin': editor.is_admin,
+                'is_developer': editor.is_developer,
+                'api_key': editor.api_key,
+                'secret_key': editor.secret_key
             }
 
             return {
                 'code': 200,
-                'code status': 'Successful',
+                'code_status': 'Successful',
                 'data': data
             }, 200
 
@@ -271,7 +272,7 @@ class EditorResource(Resource):
             if not editor:
                 return {
                     'code': 404,
-                    'code status': 'Client errors',
+                    'code_status': 'Client errors',
                     'message': f'The editor with id {id} was not found'
                 }, 404
 
@@ -303,18 +304,18 @@ class EditorResource(Resource):
 
             data = {
                 'id': editor.id,
-                'first name': editor.first_name,
-                'last name': editor.last_name,
-                'email address': editor.email_address,
-                'is admin': editor.is_admin,
-                'is developer': editor.is_developer,
-                'api key': editor.api_key,
-                'secret key': editor.secret_key
+                'first_name': editor.first_name,
+                'last_name': editor.last_name,
+                'email_address': editor.email_address,
+                'is_admin': editor.is_admin,
+                'is_developer': editor.is_developer,
+                'api_key': editor.api_key,
+                'secret_key': editor.secret_key
             }
 
             return {
                 'code': 200,
-                'code status': 'Successful',
+                'code_status': 'Successful',
                 'data': data,
             }, 200
 
@@ -349,7 +350,7 @@ class EditorResource(Resource):
             if not editor:
                 return {
                     'code': 404,
-                    'code status': 'Client errors',
+                    'code_status': 'Client errors',
                     'message': f'The editor with id {id} was not found'
                 }, 404
 
@@ -357,7 +358,7 @@ class EditorResource(Resource):
 
             return {
                 'code': 200,
-                'code status': 'Successful',
+                'code_status': 'Successful',
                 'message': f'The editor with id {id} was found and was deleted successfully'  # noqa E501
             }, 200
 

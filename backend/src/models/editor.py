@@ -7,15 +7,16 @@ This module defines the EditorModel class, representing editors list.
 
 # imports
 
-from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import UUID
+from utils import encode_auth_token
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from . import db
 from .abc import BaseModel, MetaBaseModel
-from utils import encode_auth_token
+
+from utils import NetworkTime
 
 # model
 
@@ -33,7 +34,8 @@ class EditorModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
     is_developer = db.Column(db.Boolean, default=False)
     contribution_point = db.Column(db.Integer, default=0, nullable=False)
-    last_editor_login = db.Column(db.DateTime, default=datetime.utcnow)
+    last_editor_login = db.Column(
+        db.DateTime, default=NetworkTime.network_time())
     api_key = db.Column(db.String(), unique=True, nullable=True)
     secret_key = db.Column(db.String(), unique=True, nullable=True)
     salt = db.Column(db.String(), unique=True, nullable=True)
@@ -49,8 +51,8 @@ class EditorModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     def encode_token(self, id, first_name, last_name):
         return encode_auth_token(id, first_name, last_name)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=NetworkTime.network_time())
+    updated_at = db.Column(db.DateTime, onupdate=NetworkTime.network_time())
 
     def __repr__(self):
         return f'Editor(id={self.id}, first_name={self.first_name}, last_name={self.last_name}, email_address={self.email_address}, is_developer={self.is_developer}, last_editor_login={self.last_editor_login}, api_key={self.api_key}, secret_key={self.secret_key})'  # noqa

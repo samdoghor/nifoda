@@ -28,8 +28,8 @@ server = Flask(__name__)
 
 Talisman(server)
 origins = [
-    "http://localhost:3000/",
-    "http://localhost:4000/",
+    "http://localhost:3000",
+    "http://localhost:5000",
 ]
 cors = CORS(server, resources={
             r"/api-v1/*": {"origins": origins}})
@@ -55,5 +55,6 @@ for blueprint in vars(routes).values():
 
 
 if __name__ == "__main__":
-    server.debug = config.DEBUG
-    server.run(host=config.HOST, port=config.PORT)
+    server.debug = config.DEBUG if config.ENVIRONMENT == "DEV" else False
+    if config.ENVIRONMENT == "DEV":
+        server.run(host=config.HOST, port=config.PORT)

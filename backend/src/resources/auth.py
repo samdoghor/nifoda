@@ -37,19 +37,19 @@ class AuthResource(Resource):
 
             if not editor_email:
                 return jsonify({
-                    "code": 404,
-                    "error message": "Email Not Found",
+                    "code": 401,
+                    "error_message": "Email Not Found",
                     "message": f"The email address {email_address} was not found, it might be incorrect."  # noqa
-                }), 404
+                }), 401
 
             editor_password = editor_email.check_password(password)
 
             if not editor_password:
                 return jsonify({
-                    "code": 404,
-                    "error message": "Incorrect Data",
-                    "message": f"The password {password} is not correct."
-                }), 404
+                    "code": 401,
+                    "error_message": "Incorrect Data",
+                    "message": "The password is not correct."
+                }), 401
 
             auth_token = editor_email.encode_token(
                 str(editor_email.id), editor_email.first_name,
@@ -62,11 +62,11 @@ class AuthResource(Resource):
                 if editor_password:
                     return jsonify({
                         "code": 200,
-                        'code status': 'successful',
+                        'code_status': 'successful',
                         'message': 'Successfully logged in.',
-                        'auth token': auth_token,
+                        'auth_token': auth_token,
                         'token_expires_by': expires,
-                        'editor id': editor_email.id
+                        'editor_id': editor_email.id
                     })
 
         except Forbidden as e:
@@ -80,7 +80,7 @@ class AuthResource(Resource):
             return {
                 'Code': e.code,
                 'Type': e.type,
-                'Error Message': e.message,
+                'Error_Message': e.message,
                 'Message': "No business data was found in the database."
             }
 
@@ -88,5 +88,5 @@ class AuthResource(Resource):
             return {
                 'Code': e.code,
                 'Type': e.type,
-                'Error Message': e.message
+                'Error_Message': e.message
             }
