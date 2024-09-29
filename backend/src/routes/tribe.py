@@ -38,9 +38,9 @@ DELETE /tribes/<tribe_id>
 from flask import Blueprint
 
 try:
-    from resources import TribeResource
-except ImportError:
     from ..resources import TribeResource
+except ImportError:
+    from resources import TribeResource
 
 # configuration
 

@@ -14,9 +14,9 @@ The AuthBlueprint provides routes for logging in using the AuthResource class.
 from flask import Blueprint
 
 try:
-    from resources import AuthResource
-except ImportError:
     from ..resources import AuthResource
+except ImportError:
+    from resources import AuthResource
 
 # configuration
 
