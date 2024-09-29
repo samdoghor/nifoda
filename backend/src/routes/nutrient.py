@@ -31,9 +31,9 @@ DELETE /nutrients/<nutrient_id>
 from flask import Blueprint
 
 try:
-    from resources import NutrientResource
-except ImportError:
     from ..resources import NutrientResource
+except ImportError:
+    from resources import NutrientResource
 
 # configuration
 
