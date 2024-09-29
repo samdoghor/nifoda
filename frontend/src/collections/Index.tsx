@@ -4,5 +4,6 @@ import Privacy from "../pages/Privacy";
 import Terms from "../pages/Terms";
 import NotFound from "../pages/NotFound";
 import SignUp from "../pages/SignUp";
+import Api from "../pages/Api";
 
-export { Home, About, Privacy, Terms, NotFound, SignUp };
+export { Home, About, Privacy, Terms, NotFound, SignUp, Api };
