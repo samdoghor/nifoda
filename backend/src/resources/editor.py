@@ -108,8 +108,7 @@ class EditorResource(Resource):
             return jsonify({
                 'code': 200,
                 'code_status': 'Successful',
-                'message': f'Account created successfully for {
-                    new_editor.email_address}',
+                'message': f'Account created successfully for {new_editor.email_address}',
                 'data': {
                     'id': new_editor.id,
                     'first_name': new_editor.first_name,
