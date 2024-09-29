@@ -38,7 +38,10 @@ DELETE /editors/<editor_id>
 from flask import Blueprint
 from flask_restful import Api
 
-from resources import EditorResource
+try:
+    from resources import EditorResource
+except ImportError:
+    from ..resources import EditorResource
 
 # configuration
 

@@ -37,7 +37,10 @@ DELETE /local_food_names/<local_food_name_id>
 
 from flask import Blueprint
 
-from resources import LocalFoodNameResource
+try:
+    from resources import LocalFoodNameResource
+except ImportError:
+    from ..resources import LocalFoodNameResource
 
 # configuration
 

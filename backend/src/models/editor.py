@@ -10,13 +10,19 @@ This module defines the EditorModel class, representing editors list.
 from uuid import uuid4
 
 from sqlalchemy import UUID
-from utils import encode_auth_token
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from . import db
-from .abc import BaseModel, MetaBaseModel
+try:
+    from ..utils import NetworkTime, encode_auth_token
+    from . import db
+    from .abc import BaseModel, MetaBaseModel
 
-from utils import NetworkTime
+except ImportError:
+    from utils import NetworkTime, encode_auth_token
+
+    from . import db
+    from .abc import BaseModel, MetaBaseModel
+
 
 # model
 

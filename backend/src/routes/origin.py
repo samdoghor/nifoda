@@ -37,7 +37,10 @@ DELETE /origins/<origin_id>
 
 from flask import Blueprint
 
-from resources import OriginResource
+try:
+    from resources import OriginResource
+except ImportError:
+    from ..resources import OriginResource
 
 # configuration
 

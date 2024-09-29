@@ -37,7 +37,10 @@ DELETE /foods/<food_id>
 
 from flask import Blueprint
 
-from resources import FoodResource
+try:
+    from resources import FoodResource
+except ImportError:
+    from ..resources import FoodResource
 
 # configuration
 

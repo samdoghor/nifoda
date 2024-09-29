@@ -27,17 +27,16 @@ for nutrient_value in nutrients_values:
 from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
-from models import NutrientValueModel
-from utils import (Conflict, DataNotFound, Forbidden, InternalServerError,
-                   parse_params)
+try:
+    from ..models import NutrientValueModel
+    from ..utils import (Conflict, DataNotFound, Forbidden,
+                         InternalServerError, parse_params)
+except ImportError:
+    from models import NutrientValueModel
+    from utils import (Conflict, DataNotFound, Forbidden, InternalServerError,
+                       parse_params)
 
 # resources
-
-# pylint: disable=W0718
-# pylint: disable=E0211
-# pylint: disable=E1102
-# pylint: disable=W0622
-# pylint: disable=C0103
 
 
 class NutrientValueResource(Resource):

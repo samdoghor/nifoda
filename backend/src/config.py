@@ -15,43 +15,30 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-dbUsername = os.getenv('DB_USERNAME')
-dbPassword = os.getenv('DB_PASSWORD')
-dbHost = os.getenv('DB_HOST')
-dbPort = os.getenv('DB_PORT')
-dbName = os.getenv('DB_NAME')
-dbNameTest = os.getenv('DB_NAME_TEST')
-
-
-POSTGRES_USER = os.getenv('POSTGRES_USER')
-POSTGRES_HOST = os.getenv('POSTGRES_HOST')
-POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
-POSTGRES_DATABASE = os.getenv('POSTGRES_DATABASE')
+db_username = os.getenv('DB_USERNAME')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST')
+db_port = os.getenv('DB_PORT')
+db_name = os.getenv('DB_NAME')
 
 # database (PostgreSQl)
 
-SQLALCHEMY_DATABASE_URI = f'postgresql://{dbUsername}:{dbPassword}@{dbHost}:{dbPort}/{dbName}'  # noqa
-SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-# # production database
-
-# SQLALCHEMY_DATABASE_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{dbPort}/{POSTGRES_DATABASE}'  # noqa
-# SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-# test database (PostgreSQl)
-
-test_db_name = dbNameTest
-test_db_url = f'{dbUsername}:{dbPassword}@{dbHost}:{dbPort}'
+sqlalchemy_database_uri = f'postgresql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}'  # noqa
+sqlalchemy_track_modifications = False
 
 # server
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-ENVIRONMENT = os.getenv("ENVIRONMENT")
-APPLICATION_ROOT = os.getenv("API_APPLICATION_ROOT")
-HOST = os.getenv("APPLICATION_HOST")
-PORT = int(os.getenv("APPLICATION_PORT"))
-ALGORITHM = os.getenv("ALGORITHM")
+secret_key = os.getenv("SECRET_KEY")
+environment = os.getenv("ENVIRONMENT")
+api_application_root = os.getenv("API_APPLICATION_ROOT")
+application_host = os.getenv("APPLICATION_HOST")
+application_port = int(os.getenv("APPLICATION_PORT"))
+algorithm = os.getenv("ALGORITHM")
+
+frontend_application_url = 'http://localhost:3000/'
+admin_application_url = ''
+server_url = 'http://127.0.0.1:4000/'
 
 # debugging
 
-DEBUG = os.getenv('DEBUG')
+debug = os.getenv('DEBUG')

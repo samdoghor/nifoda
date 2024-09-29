@@ -45,10 +45,15 @@ from uuid import uuid4
 
 from sqlalchemy import UUID
 
-from . import db
-from .abc import BaseModel, MetaBaseModel
+try:
+    from ..utils import NetworkTime
+    from . import db
+    from .abc import BaseModel, MetaBaseModel
+except ImportError:
+    from utils import NetworkTime
 
-from utils import NetworkTime
+    from . import db
+    from .abc import BaseModel, MetaBaseModel
 
 # model
 

@@ -8,7 +8,10 @@ Return: return_description
 from flask import jsonify
 from flask_restful import Resource
 
-from utils import (Conflict, Forbidden, InternalServerError)
+try:
+    from ..utils import Conflict, Forbidden, InternalServerError
+except ImportError:
+    from utils import Conflict, Forbidden, InternalServerError
 
 
 class IndexResource(Resource):

@@ -34,18 +34,18 @@ for editor in editors:
 from flask import jsonify
 from flask_restful import Resource
 from flask_restful.reqparse import Argument
-from models import EditorModel
 from sqlalchemy.exc import IntegrityError
-from utils import (Conflict, DataNotFound, Forbidden, InternalServerError,
-                   KeyManager, parse_params)
+
+try:
+    from ..models import EditorModel
+    from ..utils import (Conflict, DataNotFound, Forbidden,
+                         InternalServerError, KeyManager, parse_params)
+except ImportError:
+    from models import EditorModel
+    from utils import (Conflict, DataNotFound, Forbidden, InternalServerError,
+                       KeyManager, parse_params)
 
 # resources
-
-# pylint: disable=W0718
-# pylint: disable=E0211
-# pylint: disable=E1102
-# pylint: disable=W0622
-# pylint: disable=C0103
 
 
 class EditorResource(Resource):
@@ -108,7 +108,7 @@ class EditorResource(Resource):
             return jsonify({
                 'code': 200,
                 'code_status': 'Successful',
-                'message': f'Account created successfully for {new_editor.email_address}',
+                'message': f'Account created successfully for {new_editor.email_address}',  # noqa
                 'data': {
                     'id': new_editor.id,
                     'first_name': new_editor.first_name,
