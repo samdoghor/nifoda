@@ -37,7 +37,10 @@ DELETE /categories/<category_id>
 
 from flask import Blueprint
 
-from resources import IndexResource
+try:
+    from ..resources import IndexResource
+except ImportError:
+    from resources import IndexResource
 
 # configuration
 
