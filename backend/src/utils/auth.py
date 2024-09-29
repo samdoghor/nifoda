@@ -10,7 +10,10 @@ from datetime import datetime, timedelta
 
 import jwt
 
-import config
+try:
+    from .. import config
+except ImportError:
+    import config
 
 
 def encode_auth_token(id, first_name, last_name):
