@@ -1,48 +1,50 @@
-# Nigeria Food Database API (NIFODA) Frontend
+# React + TypeScript + Vite
 
-This is the admin repository for the `Nigeria Food Database API (NIFODA) project`. It is built with Vite, React, TypeScript, and Chakra-UI. The admin provides a user interface to populate the Food Database and display information about various Nigerian dishes, their ingredients, and nutritional values at the Frontend [Read More](ABOUT.md)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Installation
+Currently, two official plugins are available:
 
-To run the frontend locally, follow these steps:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-### Clone the repository
+## Expanding the ESLint configuration
 
-```bash Copy code
-git clone https://github.com/samdoghor/nifoda.git
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+
+- Configure the top-level `parserOptions` property like this:
+
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-### Navigate to the project directory
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-```bash Copy code
-cd ng-food-admin
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
-
-### Install dependencies
-
-```bash Copy code
-npm install
-```
-
-### Start the development server
-
-```bash Copy code
-npm run dev
-```
-
-The frontend should now be running on <http://localhost:4000>.
-
-## Usage
-
-Once the frontend is running, you can access the web application by opening <http://localhost:3000> in your web browser. The application provides a user-friendly interface to CRUD Nigerian dishes. You can view details about each dish, including the ingredients used and their nutritional values in the frontend.
-
-## Contributing
-
-Contributions to this project are currently not open. However, you are welcome to provide suggestions and feedback. If you encounter any bugs or have feature requests, please create a new issue in the repository.
-
-## Contact
-
-Official: To contact us, email [info@nifoda.com.ng](mailto:info@nifoda.com.ng)
-Developer: To contact the developer, email [talkto@samdoghor.com](mailto:talkto@samdoghor.com)
-
-Please note that this project is still in its early stages, and more functionality may be added in the future. This README file will be updated accordingly as the project progresses.

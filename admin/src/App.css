@@ -1,19 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Dhurjati&family=Edu+QLD+Beginner&display=swap');
-
-body {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-body::-webkit-scrollbar {
-width: .4em;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-body::-webkit-scrollbar-track {
-box-shadow: inset 0 0 6px rgba(22 101 52, 0.6);
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-body::-webkit-scrollbar-thumb {
-background-color: #11132e;
-outline: .1px solid #11132e;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
