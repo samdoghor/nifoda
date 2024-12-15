@@ -10,31 +10,44 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from app.utils import parse_params
-from ..entities import RoleEntity
-from ..repositories import RoleRepository
+from ..entities import DeveloperEntity
+from ..repositories import DeveloperRepository
 
 
 # resources
 
 
-class RoleService(Resource):
+class DeveloperService(Resource):
     """ service for managing roles """
 
     @staticmethod
     @parse_params(
-        Argument("role", location="json", required=True),
+        Argument("first_name", location="json", required=True),
+        Argument("last_name", location="json", required=True),
+        Argument("middle_name", location="json"),
+        Argument("email_address", location="json", required=True),
+        Argument("password", location="json", required=True),
     )
-    def create(role):
-        """Create a new editor"""
+    def create(first_name, last_name, middle_name, email_address, password):
+        """Create a new developer account"""
 
         try:
-            role = RoleEntity(
+            role = DeveloperEntity(
                 id=None,
-                role=role,
+                first_name=first_name,
+                last_name=last_name,
+                middle_name=middle_name,
+                email_address=email_address,
+                password=password,
+                api_key="",
+                secret_key="",
+                account_status="unverifeid",
+                account_verified=False,
+                role=None,
                 created_at=None,
                 updated_at=None,
             )
-            return RoleRepository.create(role)
+            return DeveloperRepository.create(role)
 
         except ValueError:
             return jsonify({
@@ -52,11 +65,11 @@ class RoleService(Resource):
 
     @staticmethod
     def read():
-        """ retrieves all roles """
+        """ retrieves all developers """
 
         try:
 
-            return RoleRepository.read()
+            return DeveloperRepository.read()
 
         except ValueError:
             return jsonify({
@@ -74,11 +87,11 @@ class RoleService(Resource):
 
     @staticmethod
     def fetch(id):
-        """ retrieves one role by id """
+        """ retrieves one developer by id """
 
         try:
 
-            return RoleRepository.fetch(id)
+            return DeveloperRepository.fetch(id)
 
         except ValueError:
             return jsonify({
@@ -96,14 +109,18 @@ class RoleService(Resource):
 
     @staticmethod
     @parse_params(
-        Argument("role", location="json"),
+        Argument("first_name", location="json"),
+        Argument("last_name", location="json"),
+        Argument("middle_name", location="json"),
+        Argument("email_address", location="json"),
+        Argument("password", location="json"),
     )
-    def update(id, **args: RoleEntity):
+    def update(id, **developer: DeveloperEntity):
         """ update one role by id """
 
         try:
 
-            return RoleRepository.update(id, **args)
+            return DeveloperRepository.update(id, **developer)
 
         except ValueError:
             return jsonify({
@@ -121,10 +138,10 @@ class RoleService(Resource):
 
     @staticmethod
     def delete(id):
-        """ delete one role by id """
+        """ delete one developer by id """
 
         try:
-            return RoleRepository.delete(id)
+            return DeveloperRepository.delete(id)
 
         except ValueError:
             return jsonify({

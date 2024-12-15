@@ -22,10 +22,10 @@ class RoleModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     __tablename__ = 'roles'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
-    role = db.Column(db.String(), nullable=False)
+    role = db.Column(db.String(), unique=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 
     # relationships
 
-    users = db.relationship('UserModel', backref='roles', lazy=True)
+    developers = db.relationship('DeveloperModel', backref='roles', lazy=True)

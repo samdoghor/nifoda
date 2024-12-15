@@ -6,7 +6,6 @@ from datetime import datetime
 from uuid import uuid4
 
 from sqlalchemy import UUID
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from . import db
 from .abc import BaseModel, MetaBaseModel
@@ -14,10 +13,10 @@ from .abc import BaseModel, MetaBaseModel
 
 # model
 
-class UserModel(db.Model, BaseModel, metaclass=MetaBaseModel):
+class DeveloperModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     """ this class defines the users Model e.g Samuel, Doghor """
 
-    __tablename__ = 'users'
+    __tablename__ = 'developers'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     first_name = db.Column(db.String(), nullable=False)
@@ -38,11 +37,11 @@ class UserModel(db.Model, BaseModel, metaclass=MetaBaseModel):
 
     role = db.Column(UUID(as_uuid=True), db.ForeignKey('roles.id'), nullable=False)
 
-    def set_password(self, password):
-        self.password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
+    # def set_password(self, password):
+    #     self.password = generate_password_hash(password)
+    #
+    # def check_password(self, password):
+    #     return check_password_hash(self.password, password)
 
     # def encode_token(self, id, first_name, last_name):
     #     return encode_auth_token(id, first_name, last_name)

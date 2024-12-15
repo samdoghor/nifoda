@@ -80,8 +80,15 @@ class RoleRepository:
                     "data": "no role was found",
                 }), 404
 
-            data = [{'id': role.id, 'role': role.role, 'created_at': role.created_at, 'updated_at': role.updated_at} for
-                    role in roles]
+            data = [
+                {
+                    'id': role.id,
+                    'role': role.role,
+                    'created_at': role.created_at,
+                    'updated_at': role.updated_at
+                }
+                for role in roles
+            ]
 
             return jsonify({
                 'code': 200,
@@ -132,7 +139,7 @@ class RoleRepository:
 
     @staticmethod
     def update(id, **args):
-        """ Update one editor by id """
+        """ Update one role by id """
 
         try:
             role = RoleModel.query.filter_by(id=id).first()
@@ -162,6 +169,13 @@ class RoleRepository:
                 'data': data
             }), 200
 
+        except IntegrityError:
+            return jsonify({
+                "code": 409,
+                'code_message': 'conflict',
+                "data": f"{args['role']} role already exist",
+            }), 409
+
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
             return jsonify({
                 "code": 500,
@@ -171,7 +185,7 @@ class RoleRepository:
 
     @staticmethod
     def delete(id):
-        """ Delete one editor by id """
+        """ Delete one role by id """
 
         try:
             role = RoleModel.query.filter_by(id=id).first()

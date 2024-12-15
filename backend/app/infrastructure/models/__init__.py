@@ -9,4 +9,4 @@ db = SQLAlchemy()
 # models
 
 from .role import RoleModel
-from .user import UserModel
+from .developer import DeveloperModel
