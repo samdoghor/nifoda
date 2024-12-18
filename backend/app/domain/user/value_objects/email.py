@@ -11,12 +11,13 @@ class EmailCheck:
     """
 
     def __init__(self, email_address: str):
+
         if not self.is_valid_email(email_address):
             raise ValueError(f"Invalid email: {email_address}")
         self.email_address = email_address
 
     @staticmethod
-    def is_valid_email(email_address: str) -> bool:
+    def is_valid_email(email_address) -> bool:
         """ this """
 
-        return re.match(r"[^@]+@[^@]+\.[^@]+", email_address) is not None
+        return bool(re.match(r"[^@]+@[^@]+\.[^@]+", email_address))

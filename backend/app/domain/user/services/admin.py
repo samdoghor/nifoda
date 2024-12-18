@@ -1,6 +1,6 @@
 """
-app/domain/services/role.py
-this file holds the role service info
+app/domain/services/admin.py
+this file holds the admin service info
 """
 
 # imports
@@ -10,53 +10,69 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from app.utils import parse_params
-from ..entities import RoleEntity
-from ..repositories import RoleRepository
+from ..entities import AdminEntity
+from ..repositories import AdminRepository
+from ..value_objects import EmailCheck, PasswordCheck
 
 
 # resources
 
 
-class RoleService(Resource):
-    """ service for managing roles """
+class AdminService(Resource):
+    """ service for managing admin """
 
     @staticmethod
     @parse_params(
-        Argument("role", location="json", required=True),
+        Argument("first_name", location="json", required=True),
+        Argument("last_name", location="json", required=True),
+        Argument("middle_name", location="json"),
+        Argument("email_address", location="json", required=True),
+        Argument("password", location="json", required=True),
     )
-    def create(role):
-        """Create a new editor"""
+    def create(first_name, last_name, middle_name, email_address, password):
+        """Create a new admin account"""
 
         try:
-            role = RoleEntity(
+
+            EmailCheck(email_address)
+            password_check = PasswordCheck(password)
+
+            role = AdminEntity(
                 id=None,
-                role=role,
+                first_name=first_name,
+                last_name=last_name,
+                middle_name=middle_name,
+                email_address=email_address,
+                password=password_check.password,
+                account_status="unverifeid",
+                account_verified=False,
+                role=None,
                 created_at=None,
                 updated_at=None,
             )
-            return RoleRepository.create(role)
+            return AdminRepository.create(role)
 
-        except ValueError:
+        except ValueError as e:
             return jsonify({
                 "code": 500,
                 'code_message': 'value error',
-                "data": "an incorrect value was inputted",
+                "data": f"an incorrect value was inputted: {str(e)}",
             }), 500
 
-        except TypeError:
+        except TypeError as e:
             return jsonify({
                 "code": 500,
                 'code_message': 'type error',
-                "data": "an incorrect datatype was inputted",
+                "data": f"an incorrect datatype was inputted: {str(e)}",
             }), 500
 
     @staticmethod
     def read():
-        """ retrieves all roles """
+        """ retrieves all admins """
 
         try:
 
-            return RoleRepository.read()
+            return AdminRepository.read()
 
         except ValueError:
             return jsonify({
@@ -74,11 +90,11 @@ class RoleService(Resource):
 
     @staticmethod
     def fetch(id):
-        """ retrieves one role by id """
+        """ retrieves one admin by id """
 
         try:
 
-            return RoleRepository.fetch(id)
+            return AdminRepository.fetch(id)
 
         except ValueError:
             return jsonify({
@@ -96,35 +112,39 @@ class RoleService(Resource):
 
     @staticmethod
     @parse_params(
-        Argument("role", location="json"),
+        Argument("first_name", location="json"),
+        Argument("last_name", location="json"),
+        Argument("middle_name", location="json"),
+        Argument("email_address", location="json"),
+        Argument("password", location="json"),
     )
-    def update(id, **args: RoleEntity):
-        """ update one role by id """
+    def update(id, **admin: AdminEntity):
+        """ update one admin by id """
 
         try:
 
-            return RoleRepository.update(id, **args)
+            return AdminRepository.update(id, **admin)
 
-        except ValueError:
+        except ValueError as e:
             return jsonify({
                 "code": 500,
                 'code_message': 'value error',
-                "data": "an incorrect value was inputted",
+                "data": f"an incorrect value was inputted: {str(e)}",
             }), 500
 
-        except TypeError:
+        except TypeError as e:
             return jsonify({
                 "code": 500,
                 'code_message': 'type error',
-                "data": "an incorrect datatype was inputted",
+                "data": f"an incorrect datatype was inputted: {str(e)}",
             }), 500
 
     @staticmethod
     def delete(id):
-        """ delete one role by id """
+        """ delete one admin by id """
 
         try:
-            return RoleRepository.delete(id)
+            return AdminRepository.delete(id)
 
         except ValueError:
             return jsonify({

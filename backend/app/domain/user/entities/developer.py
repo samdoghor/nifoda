@@ -1,6 +1,6 @@
 """
-app/domain/entities/user.py
-this file holds the user entity info
+app/domain/entities/developer.py
+this file holds the developer entity info
 """
 from datetime import datetime
 from uuid import uuid4
@@ -8,7 +8,7 @@ from uuid import uuid4
 from ..value_objects import EmailCheck, PasswordCheck
 
 
-class UserEntity:
+class DeveloperEntity:
     """
     the
     """
@@ -32,24 +32,24 @@ class UserEntity:
 
     def activate_account(self):
         """
-        this function activates the user's account
+        this function activates the developer's account
         """
         self.account_status = 'active'
 
     def block_account(self):
         """
-        this function blocks the user's account
+        this function blocks the developer's account
         """
         self.account_status = 'blocked'
 
     def deleted_account(self):
         """
-        this function stages the user's account for deletion
+        this function stages the developer's account for deletion
         """
         self.account_status = 'deleted'
 
     def verify_account(self):
         """
-        this function trigger the user's account as verified
+        this function trigger the developer's account as verified
         """
         self.account_verified = True

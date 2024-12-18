@@ -9,8 +9,6 @@ endpoints for the API.
 
 """
 
-# imports
-
 from flask import Blueprint, Flask
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -18,6 +16,8 @@ from flask_talisman import Talisman
 
 from . import config, routes
 from .infrastructure.models import db
+
+# imports
 
 # instantiation/configuration
 
