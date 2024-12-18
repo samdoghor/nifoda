@@ -1,48 +1,54 @@
 """
-app/domain/repositories/role.py
-this file holds the role repository info
+app/domain/repositories/category.py
+this file holds the category repository info
 """
 
 # imports
 
 from flask import jsonify
+from flask_restful import Resource
 from psycopg2.errors import DataError, InternalError, OperationalError
 from sqlalchemy.exc import DBAPIError, DisconnectionError, IntegrityError, ProgrammingError
 
-from app.infrastructure.models.user_domain import RoleModel
-from ..entities import RoleEntity
+from ..entities import CategoryEntity
+from ....infrastructure.models.food_domain import CategoryModel
 
 
 # resources
 
 
-class RoleRepository:
-    """ service for managing roles """
+class CategoryRepository(Resource):
+    """Resource for managing categories"""
 
     @staticmethod
-    def create(role: RoleEntity) -> jsonify:
-        """Create a new editor"""
+    def create(category: CategoryEntity):
+        """Create a new category"""
 
         try:
-            existing_role = RoleModel.query.filter_by(role=role.role).first()
+            existing_category = CategoryModel.query.filter_by(name=category.name.lower()).first()
 
-            if existing_role:
+            if existing_category:
                 return jsonify({
                     "code": 409,
                     'code_message': 'conflict',
-                    "data": f"{role.role} role already exist",
+                    "data": f"{category.name} category already exist",
                 }), 409
 
+            # create new category account
+
             # noinspection PyArgumentList
-            new_role = RoleModel(
-                role=role.role
+            new_category = CategoryModel(
+                name=category.name.lower(),
+                description=category.description,
+                category_status=category.category_status,
+                group=category.group,
             )
-            new_role.save()
+            new_category.save()
 
             return jsonify({
                 'code': 201,
                 'code_message': 'created',
-                'data': f'{role.role} role was created successfully',
+                'data': f'{category.name} category was created successfully',
             }), 201
 
         except DataError:
@@ -56,7 +62,7 @@ class RoleRepository:
             return jsonify({
                 "code": 409,
                 'code_message': 'conflict',
-                "data": f"{role.role} role already exist",
+                "data": f"{category.name} category already exist or required parameter is missing",
             }), 409
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
@@ -68,26 +74,29 @@ class RoleRepository:
 
     @staticmethod
     def read():
-        """ retrieves all roles """
+        """ retrieves all categories """
 
         try:
-            roles = RoleModel.query.all()
+            categories = CategoryModel.query.all()
 
-            if not roles:
+            if not categories:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": "no role was found",
+                    "data": "no category was found",
                 }), 404
 
             data = [
                 {
-                    'id': role.id,
-                    'role': role.role,
-                    'created_at': role.created_at,
-                    'updated_at': role.updated_at
+                    'id': category.id,
+                    'name': category.name,
+                    'description': category.description,
+                    'category_status': category.category_status,
+                    'group': category.group,
+                    'created_at': category.created_at,
+                    'updated_at': category.updated_at,
                 }
-                for role in roles
+                for category in categories
             ]
 
             return jsonify({
@@ -105,23 +114,26 @@ class RoleRepository:
 
     @staticmethod
     def fetch(id):
-        """ retrieves one role by id """
+        """ retrieves one category by id """
 
         try:
-            role = RoleModel.query.filter_by(id=id).first()
+            category = CategoryModel.query.filter_by(id=id).first()
 
-            if not role:
+            if not category:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
+                    "data": f"category with id {id} was not found",
                 }), 404
 
             data = {
-                'id': role.id,
-                'role': role.role,
-                'created_at': role.created_at,
-                'updated_at': role.updated_at,
+                'id': category.id,
+                'name': category.name,
+                'description': category.description,
+                'category_status': category.category_status,
+                'group': category.group,
+                'created_at': category.created_at,
+                'updated_at': category.updated_at,
             }
 
             return jsonify({
@@ -139,28 +151,37 @@ class RoleRepository:
 
     @staticmethod
     def update(id, **args):
-        """ Update one role by id """
+        """ Update one category by id """
 
         try:
-            role = RoleModel.query.filter_by(id=id).first()
+            category = CategoryModel.query.filter_by(id=id).first()
 
-            if not role:
+            if not category:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
+                    "data": f"category with id {id} was not found",
                 }), 404
 
-            if 'role' in args and args['role'] is not None:
-                role.role = args['role']
+            if 'name' in args and args['name'] is not None:
+                category.name = args['name'].lower()
 
-            role.save()
+            if 'description' in args and args['description'] is not None:
+                category.description = args['description']
+
+            if 'group' in args and args['group'] is not None:
+                category.group = args['group']
+
+            category.save()
 
             data = {
-                'id': role.id,
-                'role': role.role,
-                'created_at': role.created_at,
-                'updated_at': role.updated_at,
+                'id': category.id,
+                'name': category.name,
+                'description': category.description,
+                'category_status': category.category_status,
+                'group': category.group,
+                'created_at': category.created_at,
+                'updated_at': category.updated_at,
             }
 
             return jsonify({
@@ -168,13 +189,6 @@ class RoleRepository:
                 'code_message': 'successful',
                 'data': data
             }), 200
-
-        except IntegrityError:
-            return jsonify({
-                "code": 409,
-                'code_message': 'conflict',
-                "data": f"{args['role']} role already exist",
-            }), 409
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
             return jsonify({
@@ -185,33 +199,29 @@ class RoleRepository:
 
     @staticmethod
     def delete(id):
-        """ Delete one role by id """
+        """ Delete one category by id """
 
         try:
-            role = RoleModel.query.filter_by(id=id).first()
+            category = CategoryModel.query.filter_by(id=id).first()
 
-            if not role:
+            if not category:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
+                    "data": f"category with id {id} was not found",
                 }), 404
 
-            role_name = role.role
+            # category.category_status = 'deleted'
+            # category.save()
 
-            if not role_name:
-                return jsonify({
-                    "code": 404,
-                    'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
-                }), 404
+            # TODO: uncomment the above and comment the below
 
-            role.delete()
+            category.delete()
 
             return jsonify({
                 'code': 200,
                 'code_message': 'successful',
-                'data': f"{role_name} role was deleted"
+                'data': "category was deleted successfully"
             }), 200
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
