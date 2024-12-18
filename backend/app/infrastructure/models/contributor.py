@@ -34,3 +34,7 @@ class ContributorModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     # foreign key(s)
 
     role = db.Column(UUID(as_uuid=True), db.ForeignKey('roles.id'), nullable=False)
+
+    # relationships
+
+    points = db.relationship('PointModel', backref='contributors', lazy=True, cascade='all, delete-orphan')

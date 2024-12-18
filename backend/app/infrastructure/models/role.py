@@ -28,4 +28,6 @@ class RoleModel(db.Model, BaseModel, metaclass=MetaBaseModel):
 
     # relationships
 
+    admins = db.relationship('AdminModel', backref='roles', lazy=True)
+    contributors = db.relationship('ContributorModel', backref='roles', lazy=True)
     developers = db.relationship('DeveloperModel', backref='roles', lazy=True)
