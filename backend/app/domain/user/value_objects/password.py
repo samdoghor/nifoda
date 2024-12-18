@@ -17,8 +17,6 @@ class PasswordCheck:
         if len(password) < 8:
             raise ValueError("Password must be at least 8 characters long")
 
-        print(self.password_requirement(password))
-
         if not self.password_requirement(password):
             raise ValueError("Password must contain at least one uppercase, one lowercase, one symbol, and one digit")
 

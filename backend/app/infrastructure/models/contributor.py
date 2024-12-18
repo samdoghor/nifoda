@@ -1,6 +1,6 @@
 """
-app/infrastructure/models/developer.py
-this file holds the developer model info
+app/infrastructure/models/contributor.py
+this file holds the contributor model info
 """
 from datetime import datetime
 from uuid import uuid4
@@ -13,10 +13,10 @@ from .abc import BaseModel, MetaBaseModel
 
 # model
 
-class DeveloperModel(db.Model, BaseModel, metaclass=MetaBaseModel):
-    """ this class defines the developers Model e.g Samuel, Doghor """
+class ContributorModel(db.Model, BaseModel, metaclass=MetaBaseModel):
+    """ this class defines the contributors Model e.g Samuel, Doghor """
 
-    __tablename__ = 'developers'
+    __tablename__ = 'contributors'
 
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     first_name = db.Column(db.String(), nullable=False)
@@ -24,8 +24,6 @@ class DeveloperModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     middle_name = db.Column(db.String(), nullable=False)
     email_address = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
-    secret_key = db.Column(db.String(), unique=True, nullable=False)
-    api_key = db.Column(db.String(), unique=True, nullable=False)
     account_status = db.Column(db.String(),
                                default='unverifeid',
                                nullable=False)  # unverifeid, active, blocked, deleted

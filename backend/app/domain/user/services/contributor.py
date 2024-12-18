@@ -1,6 +1,6 @@
 """
-app/domain/services/developer.py
-this file holds the developer service info
+app/domain/services/contributor.py
+this file holds the contributor service info
 """
 
 # imports
@@ -10,16 +10,16 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from app.utils import parse_params
-from ..entities import DeveloperEntity
-from ..repositories import DeveloperRepository
+from ..entities import ContributorEntity
+from ..repositories import ContributorRepository
 from ..value_objects import EmailCheck, PasswordCheck
 
 
 # resources
 
 
-class DeveloperService(Resource):
-    """ service for managing developers """
+class ContributorService(Resource):
+    """ service for managing contributor """
 
     @staticmethod
     @parse_params(
@@ -30,29 +30,27 @@ class DeveloperService(Resource):
         Argument("password", location="json", required=True),
     )
     def create(first_name, last_name, middle_name, email_address, password):
-        """Create a new developer account"""
+        """Create a new contributor account"""
 
         try:
 
             EmailCheck(email_address)
             password_check = PasswordCheck(password)
 
-            role = DeveloperEntity(
+            role = ContributorEntity(
                 id=None,
                 first_name=first_name,
                 last_name=last_name,
                 middle_name=middle_name,
                 email_address=email_address,
                 password=password_check.password,
-                api_key="",
-                secret_key="",
                 account_status="unverifeid",
                 account_verified=False,
                 role=None,
                 created_at=None,
                 updated_at=None,
             )
-            return DeveloperRepository.create(role)
+            return ContributorRepository.create(role)
 
         except ValueError as e:
             return jsonify({
@@ -70,11 +68,11 @@ class DeveloperService(Resource):
 
     @staticmethod
     def read():
-        """ retrieves all developers """
+        """ retrieves all contributors """
 
         try:
 
-            return DeveloperRepository.read()
+            return ContributorRepository.read()
 
         except ValueError:
             return jsonify({
@@ -92,11 +90,11 @@ class DeveloperService(Resource):
 
     @staticmethod
     def fetch(id):
-        """ retrieves one developer by id """
+        """ retrieves one contributor by id """
 
         try:
 
-            return DeveloperRepository.fetch(id)
+            return ContributorRepository.fetch(id)
 
         except ValueError:
             return jsonify({
@@ -120,12 +118,12 @@ class DeveloperService(Resource):
         Argument("email_address", location="json"),
         Argument("password", location="json"),
     )
-    def update(id, **developer: DeveloperEntity):
+    def update(id, **contributor: ContributorEntity):
         """ update one role by id """
 
         try:
 
-            return DeveloperRepository.update(id, **developer)
+            return ContributorRepository.update(id, **contributor)
 
         except ValueError as e:
             return jsonify({
@@ -143,10 +141,10 @@ class DeveloperService(Resource):
 
     @staticmethod
     def delete(id):
-        """ delete one developer by id """
+        """ delete one contributor by id """
 
         try:
-            return DeveloperRepository.delete(id)
+            return ContributorRepository.delete(id)
 
         except ValueError:
             return jsonify({
