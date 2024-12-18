@@ -12,7 +12,7 @@ from sqlalchemy.exc import DBAPIError, DisconnectionError, IntegrityError, Progr
 
 from ..entities import DeveloperEntity
 from ..value_objects import EmailCheck, PasswordCheck
-from ....infrastructure.models import DeveloperModel, RoleModel
+from ....infrastructure.models.user_domain import DeveloperModel, RoleModel
 from ....utils import SecretGenerator
 
 

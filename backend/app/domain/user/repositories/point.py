@@ -9,7 +9,7 @@ from flask import jsonify
 from psycopg2.errors import DataError, InternalError, OperationalError
 from sqlalchemy.exc import DBAPIError, DisconnectionError, ProgrammingError
 
-from app.infrastructure.models import ContributorModel, PointModel
+from app.infrastructure.models.user_domain import ContributorModel, PointModel
 from ..entities import PointEntity
 from ..value_objects import PointCheck
 

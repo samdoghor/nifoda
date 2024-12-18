@@ -53,6 +53,9 @@ except ImportError:
     from . import db
     from .abc import BaseModel, MetaBaseModel
 
+from .abc import BaseModel, MetaBaseModel
+from . import db
+
 
 # model
 

@@ -2,9 +2,6 @@
 this file holds all route import
 """
 
-from .admin import AdminBlueprint
-from .contributor import ContributorBlueprint
-from .developer import DeveloperBlueprint
+from .food_domain import CategoryBlueprint, GroupBlueprint
 from .index import IndexBlueprint
-from .point import PointBlueprint
-from .role import RoleBlueprint
+from .user_domain import AdminBlueprint, ContributorBlueprint, DeveloperBlueprint, PointBlueprint, RoleBlueprint

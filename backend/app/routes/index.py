@@ -8,7 +8,7 @@ this file holds the index route info
 
 from flask import Blueprint
 
-from .. import IndexService
+from app import IndexService
 
 # configuration
 

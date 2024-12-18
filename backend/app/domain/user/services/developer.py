@@ -37,7 +37,7 @@ class DeveloperService(Resource):
             EmailCheck(email_address)
             password_check = PasswordCheck(password)
 
-            role = DeveloperEntity(
+            developer = DeveloperEntity(
                 id=None,
                 first_name=first_name,
                 last_name=last_name,
@@ -52,7 +52,7 @@ class DeveloperService(Resource):
                 created_at=None,
                 updated_at=None,
             )
-            return DeveloperRepository.create(role)
+            return DeveloperRepository.create(developer)
 
         except ValueError as e:
             return jsonify({

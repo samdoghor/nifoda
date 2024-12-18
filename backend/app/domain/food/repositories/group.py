@@ -1,48 +1,53 @@
 """
-app/domain/repositories/role.py
-this file holds the role repository info
+app/domain/repositories/group.py
+this file holds the group repository info
 """
 
 # imports
 
 from flask import jsonify
+from flask_restful import Resource
 from psycopg2.errors import DataError, InternalError, OperationalError
 from sqlalchemy.exc import DBAPIError, DisconnectionError, IntegrityError, ProgrammingError
 
-from app.infrastructure.models.user_domain import RoleModel
-from ..entities import RoleEntity
+from ..entities import GroupEntity
+from ....infrastructure.models.food_domain import GroupModel
 
 
 # resources
 
 
-class RoleRepository:
-    """ service for managing roles """
+class GroupRepository(Resource):
+    """Resource for managing groups"""
 
     @staticmethod
-    def create(role: RoleEntity) -> jsonify:
-        """Create a new editor"""
+    def create(group: GroupEntity):
+        """Create a new group"""
 
         try:
-            existing_role = RoleModel.query.filter_by(role=role.role).first()
+            existing_group = GroupModel.query.filter_by(name=group.name.lower()).first()
 
-            if existing_role:
+            if existing_group:
                 return jsonify({
                     "code": 409,
                     'code_message': 'conflict',
-                    "data": f"{role.role} role already exist",
+                    "data": f"{group.name} group already exist",
                 }), 409
 
+            # create new group account
+
             # noinspection PyArgumentList
-            new_role = RoleModel(
-                role=role.role
+            new_group = GroupModel(
+                name=group.name.lower(),
+                description=group.description,
+                group_status=group.group_status,
             )
-            new_role.save()
+            new_group.save()
 
             return jsonify({
                 'code': 201,
                 'code_message': 'created',
-                'data': f'{role.role} role was created successfully',
+                'data': f'{group.name} group was created successfully',
             }), 201
 
         except DataError:
@@ -56,7 +61,7 @@ class RoleRepository:
             return jsonify({
                 "code": 409,
                 'code_message': 'conflict',
-                "data": f"{role.role} role already exist",
+                "data": f"{group.name} group already exist or required parameter is missing",
             }), 409
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
@@ -68,26 +73,28 @@ class RoleRepository:
 
     @staticmethod
     def read():
-        """ retrieves all roles """
+        """ retrieves all groups """
 
         try:
-            roles = RoleModel.query.all()
+            groups = GroupModel.query.all()
 
-            if not roles:
+            if not groups:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": "no role was found",
+                    "data": "no group was found",
                 }), 404
 
             data = [
                 {
-                    'id': role.id,
-                    'role': role.role,
-                    'created_at': role.created_at,
-                    'updated_at': role.updated_at
+                    'id': group.id,
+                    'name': group.name,
+                    'description': group.description,
+                    'group_status': group.group_status,
+                    'created_at': group.created_at,
+                    'updated_at': group.updated_at,
                 }
-                for role in roles
+                for group in groups
             ]
 
             return jsonify({
@@ -105,23 +112,25 @@ class RoleRepository:
 
     @staticmethod
     def fetch(id):
-        """ retrieves one role by id """
+        """ retrieves one group by id """
 
         try:
-            role = RoleModel.query.filter_by(id=id).first()
+            group = GroupModel.query.filter_by(id=id).first()
 
-            if not role:
+            if not group:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
+                    "data": f"group with id {id} was not found",
                 }), 404
 
             data = {
-                'id': role.id,
-                'role': role.role,
-                'created_at': role.created_at,
-                'updated_at': role.updated_at,
+                'id': group.id,
+                'name': group.name,
+                'description': group.description,
+                'group_status': group.group_status,
+                'created_at': group.created_at,
+                'updated_at': group.updated_at,
             }
 
             return jsonify({
@@ -139,28 +148,33 @@ class RoleRepository:
 
     @staticmethod
     def update(id, **args):
-        """ Update one role by id """
+        """ Update one group by id """
 
         try:
-            role = RoleModel.query.filter_by(id=id).first()
+            group = GroupModel.query.filter_by(id=id).first()
 
-            if not role:
+            if not group:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
+                    "data": f"group with id {id} was not found",
                 }), 404
 
-            if 'role' in args and args['role'] is not None:
-                role.role = args['role']
+            if 'name' in args and args['name'] is not None:
+                group.name = args['name'].lower()
 
-            role.save()
+            if 'description' in args and args['description'] is not None:
+                group.description = args['description']
+
+            group.save()
 
             data = {
-                'id': role.id,
-                'role': role.role,
-                'created_at': role.created_at,
-                'updated_at': role.updated_at,
+                'id': group.id,
+                'name': group.name,
+                'description': group.description,
+                'group_status': group.group_status,
+                'created_at': group.created_at,
+                'updated_at': group.updated_at,
             }
 
             return jsonify({
@@ -168,13 +182,6 @@ class RoleRepository:
                 'code_message': 'successful',
                 'data': data
             }), 200
-
-        except IntegrityError:
-            return jsonify({
-                "code": 409,
-                'code_message': 'conflict',
-                "data": f"{args['role']} role already exist",
-            }), 409
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
             return jsonify({
@@ -185,33 +192,29 @@ class RoleRepository:
 
     @staticmethod
     def delete(id):
-        """ Delete one role by id """
+        """ Delete one group by id """
 
         try:
-            role = RoleModel.query.filter_by(id=id).first()
+            group = GroupModel.query.filter_by(id=id).first()
 
-            if not role:
+            if not group:
                 return jsonify({
                     "code": 404,
                     'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
+                    "data": f"group with id {id} was not found",
                 }), 404
 
-            role_name = role.role
+            # group.group_status = 'deleted'
+            # group.save()
 
-            if not role_name:
-                return jsonify({
-                    "code": 404,
-                    'code_message': 'not found',
-                    "data": f"role with id {id} was not found",
-                }), 404
+            # TODO: uncomment the above and comment the below
 
-            role.delete()
+            group.delete()
 
             return jsonify({
                 'code': 200,
                 'code_message': 'successful',
-                'data': f"{role_name} role was deleted"
+                'data': "group was deleted successfully"
             }), 200
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):

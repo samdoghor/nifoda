@@ -37,7 +37,7 @@ class AdminService(Resource):
             EmailCheck(email_address)
             password_check = PasswordCheck(password)
 
-            role = AdminEntity(
+            admin = AdminEntity(
                 id=None,
                 first_name=first_name,
                 last_name=last_name,
@@ -50,7 +50,7 @@ class AdminService(Resource):
                 created_at=None,
                 updated_at=None,
             )
-            return AdminRepository.create(role)
+            return AdminRepository.create(admin)
 
         except ValueError as e:
             return jsonify({

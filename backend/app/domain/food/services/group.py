@@ -1,6 +1,6 @@
 """
-app/domain/services/contributor.py
-this file holds the contributor service info
+app/domain/services/group.py
+this file holds the group service info
 """
 
 # imports
@@ -10,47 +10,35 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from app.utils import parse_params
-from ..entities import ContributorEntity
-from ..repositories import ContributorRepository
-from ..value_objects import EmailCheck, PasswordCheck
+from ..entities import GroupEntity
+from ..repositories import GroupRepository
 
 
 # resources
 
 
-class ContributorService(Resource):
-    """ service for managing contributor """
+class GroupService(Resource):
+    """ service for managing group """
 
     @staticmethod
     @parse_params(
-        Argument("first_name", location="json", required=True),
-        Argument("last_name", location="json", required=True),
-        Argument("middle_name", location="json"),
-        Argument("email_address", location="json", required=True),
-        Argument("password", location="json", required=True),
+        Argument("name", location="json", required=True),
+        Argument("description", location="json", required=True),
     )
-    def create(first_name, last_name, middle_name, email_address, password):
-        """Create a new contributor account"""
+    def create(name, description):
+        """Create a new group account"""
 
         try:
 
-            EmailCheck(email_address)
-            password_check = PasswordCheck(password)
-
-            contributor = ContributorEntity(
+            group = GroupEntity(
                 id=None,
-                first_name=first_name,
-                last_name=last_name,
-                middle_name=middle_name,
-                email_address=email_address,
-                password=password_check.password,
-                account_status="unverifeid",
-                account_verified=False,
-                role=None,
+                name=name,
+                description=description,
+                group_status="pending_review",
                 created_at=None,
                 updated_at=None,
             )
-            return ContributorRepository.create(contributor)
+            return GroupRepository.create(group)
 
         except ValueError as e:
             return jsonify({
@@ -68,11 +56,11 @@ class ContributorService(Resource):
 
     @staticmethod
     def read():
-        """ retrieves all contributors """
+        """ retrieves all groups """
 
         try:
 
-            return ContributorRepository.read()
+            return GroupRepository.read()
 
         except ValueError:
             return jsonify({
@@ -90,11 +78,11 @@ class ContributorService(Resource):
 
     @staticmethod
     def fetch(id):
-        """ retrieves one contributor by id """
+        """ retrieves one group by id """
 
         try:
 
-            return ContributorRepository.fetch(id)
+            return GroupRepository.fetch(id)
 
         except ValueError:
             return jsonify({
@@ -112,18 +100,15 @@ class ContributorService(Resource):
 
     @staticmethod
     @parse_params(
-        Argument("first_name", location="json"),
-        Argument("last_name", location="json"),
-        Argument("middle_name", location="json"),
-        Argument("email_address", location="json"),
-        Argument("password", location="json"),
+        Argument("name", location="json"),
+        Argument("description", location="json"),
     )
-    def update(id, **contributor: ContributorEntity):
-        """ update one contributor by id """
+    def update(id, **group: GroupEntity):
+        """ update one group by id """
 
         try:
 
-            return ContributorRepository.update(id, **contributor)
+            return GroupRepository.update(id, **group)
 
         except ValueError as e:
             return jsonify({
@@ -141,10 +126,10 @@ class ContributorService(Resource):
 
     @staticmethod
     def delete(id):
-        """ delete one contributor by id """
+        """ delete one group by id """
 
         try:
-            return ContributorRepository.delete(id)
+            return GroupRepository.delete(id)
 
         except ValueError:
             return jsonify({
