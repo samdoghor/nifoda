@@ -2,8 +2,10 @@ alembic==1.13.3
 aniso8601==9.0.1
 autopep8==2.3.1
 blinker==1.8.2
+cffi==1.17.1
 click==8.1.7
 colorama==0.4.6
+cryptography==44.0.0
 flake8==7.1.1
 Flask==3.0.3
 Flask-Cors==5.0.0
@@ -24,6 +26,8 @@ packaging==24.1
 psycopg2==2.9.9
 psycopg2-binary==2.9.9
 pycodestyle==2.12.1
+pycparser==2.22
+pycryptodome==3.21.0
 pyflakes==3.2.0
 PyJWT==2.9.0
 python-dotenv==1.0.1
@@ -32,4 +36,4 @@ PyYAML==6.0.2
 six==1.16.0
 SQLAlchemy==2.0.35
 typing_extensions==4.12.2
-Werkzeug==3.0.4
+Werkzeug==3.1.3

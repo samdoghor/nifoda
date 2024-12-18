@@ -17,18 +17,20 @@ class PasswordCheck:
         if len(password) < 8:
             raise ValueError("Password must be at least 8 characters long")
 
+        print(self.password_requirement(password))
+
         if not self.password_requirement(password):
-            raise ValueError("Password must be at least one uppercase, one lowercase, one symbol, and one digit")
+            raise ValueError("Password must contain at least one uppercase, one lowercase, one symbol, and one digit")
 
         self._hash_password(password)
 
     @staticmethod
-    def password_requirement(password: str) -> bool:
+    def password_requirement(password) -> bool:
         """ the """
 
-        pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+=-{};:<>,./?])(?=.*[0-9]).*$"
+        pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=\-[\]{};:'\",.<>?\\|^~`]).{8,}$"
 
-        return re.match(pattern, password) is not None
+        return bool(re.match(pattern, password))
 
     def _hash_password(self, password: str):
         """ the """

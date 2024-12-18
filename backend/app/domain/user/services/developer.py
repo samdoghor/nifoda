@@ -12,6 +12,7 @@ from flask_restful.reqparse import Argument
 from app.utils import parse_params
 from ..entities import DeveloperEntity
 from ..repositories import DeveloperRepository
+from ..value_objects import EmailCheck, PasswordCheck
 
 
 # resources
@@ -32,6 +33,10 @@ class DeveloperService(Resource):
         """Create a new developer account"""
 
         try:
+
+            EmailCheck(email_address)
+            PasswordCheck(password)
+
             role = DeveloperEntity(
                 id=None,
                 first_name=first_name,
@@ -49,18 +54,18 @@ class DeveloperService(Resource):
             )
             return DeveloperRepository.create(role)
 
-        except ValueError:
+        except ValueError as e:
             return jsonify({
                 "code": 500,
                 'code_message': 'value error',
-                "data": "an incorrect value was inputted",
+                "data": f"an incorrect value was inputted: {str(e)}",
             }), 500
 
-        except TypeError:
+        except TypeError as e:
             return jsonify({
                 "code": 500,
                 'code_message': 'type error',
-                "data": "an incorrect datatype was inputted",
+                "data": f"an incorrect datatype was inputted: {str(e)}",
             }), 500
 
     @staticmethod

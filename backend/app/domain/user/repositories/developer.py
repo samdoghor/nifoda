@@ -12,6 +12,7 @@ from sqlalchemy.exc import DBAPIError, DisconnectionError, IntegrityError, Progr
 
 from ..entities import DeveloperEntity
 from ....infrastructure.models import DeveloperModel, RoleModel
+from ....utils import SecretGenerator
 
 
 # resources
@@ -37,6 +38,9 @@ class DeveloperRepository(Resource):
 
             # create new developer account
 
+            api_key = SecretGenerator.api_key().decode('utf-8')
+            secret_key = SecretGenerator.secret_key().decode('utf-8')
+
             # noinspection PyArgumentList
             new_developer = DeveloperModel(
                 first_name=developer.first_name,
@@ -44,6 +48,8 @@ class DeveloperRepository(Resource):
                 middle_name=developer.middle_name,
                 email_address=developer.email_address,
                 password=developer.password,
+                secret_key=secret_key,
+                api_key=api_key,
                 role=role.id
             )
             new_developer.save()
@@ -68,12 +74,12 @@ class DeveloperRepository(Resource):
                 "data": f"{developer.email_address} already has an account or required parameter is missing",
             }), 409
 
-        except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
-            return jsonify({
-                "code": 500,
-                'code_message': 'database error',
-                "data": "this error is a database error",
-            }), 500
+        # except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
+        #     return jsonify({
+        #         "code": 500,
+        #         'code_message': 'database error',
+        #         "data": "this error is a database error",
+        #     }), 500
 
     @staticmethod
     def read():
@@ -97,7 +103,8 @@ class DeveloperRepository(Resource):
                     'middle_name': developer.middle_name,
                     'email_address': developer.email_address,
                     'password': developer.password,
-                    'api_key': developer.api_key,
+                    'secret_key': developer.secret_key,
+                    'api_key': SecretGenerator.verify_key(developer.api_key),
                     'account_status': developer.account_status,
                     'account_verified': developer.account_verified,
                     'role': developer.role,
@@ -134,13 +141,16 @@ class DeveloperRepository(Resource):
                     "data": f"developer with id {id} was not found",
                 }), 404
 
+            verify_api_key = SecretGenerator.verify_key(developer.api_key)
+
             data = {
                 'id': developer.id,
                 'first_name': developer.first_name,
                 'last_name': developer.last_name,
                 'middle_name': developer.middle_name,
                 'email_address': developer.email_address,
-                'api_key': developer.api_key,
+                'secret_key': developer.secret_key,
+                'api_key': verify_api_key,
                 'account_status': developer.account_status,
                 'account_verified': developer.account_verified,
                 'role': developer.role,
@@ -234,8 +244,12 @@ class DeveloperRepository(Resource):
                     "data": f"developer with id {id} was not found",
                 }), 404
 
-            developer.account_status = 'deleted'
-            developer.save()
+            # developer.account_status = 'deleted'
+            # developer.save()
+
+            # TODO: uncomment the above and comment the below
+
+            developer.delete()
 
             return jsonify({
                 'code': 200,
