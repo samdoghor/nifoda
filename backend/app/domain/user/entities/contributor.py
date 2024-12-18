@@ -30,24 +30,24 @@ class ContributorEntity:
 
     def activate_account(self):
         """
-        this function activates the user's account
+        this function activates the contributor's account
         """
         self.account_status = 'active'
 
     def block_account(self):
         """
-        this function blocks the user's account
+        this function blocks the contributor's account
         """
         self.account_status = 'blocked'
 
     def deleted_account(self):
         """
-        this function stages the user's account for deletion
+        this function stages the contributor's account for deletion
         """
         self.account_status = 'deleted'
 
     def verify_account(self):
         """
-        this function trigger the user's account as verified
+        this function trigger the contributor's account as verified
         """
         self.account_verified = True

@@ -121,7 +121,7 @@ class DeveloperService(Resource):
         Argument("password", location="json"),
     )
     def update(id, **developer: DeveloperEntity):
-        """ update one role by id """
+        """ update one developer by id """
 
         try:
 

@@ -11,3 +11,4 @@ db = SQLAlchemy()
 from .role import RoleModel
 from .developer import DeveloperModel
 from .contributor import ContributorModel
+from .admin import AdminModel

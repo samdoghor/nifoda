@@ -1,6 +1,6 @@
 """
-app/domain/entities/developer.py
-this file holds the developer entity info
+app/domain/entities/admin.py
+this file holds the admin entity info
 """
 from datetime import datetime
 from uuid import uuid4
@@ -8,13 +8,13 @@ from uuid import uuid4
 from ..value_objects import EmailCheck, PasswordCheck
 
 
-class DeveloperEntity:
+class AdminEntity:
     """
     the
     """
 
     def __init__(self, id: uuid4, first_name: str, last_name: str, middle_name: str | None, email_address: EmailCheck,
-                 password: PasswordCheck, secret_key: str, api_key: str, account_status: str, account_verified: bool,
+                 password: PasswordCheck, account_status: str, account_verified: bool,
                  role: uuid4, created_at: datetime | None, updated_at: datetime | None):
         self.id = id
         self.first_name = first_name
@@ -22,8 +22,6 @@ class DeveloperEntity:
         self.middle_name = middle_name
         self.email_address = email_address
         self.password = password
-        self.secret_key = secret_key
-        self.api_key = api_key
         self.account_status = account_status  # unverifeid, active, blocked, deleted
         self.account_verified = account_verified
         self.role = role
@@ -32,24 +30,24 @@ class DeveloperEntity:
 
     def activate_account(self):
         """
-        this function activates the developer's account
+        this function activates the admin's account
         """
         self.account_status = 'active'
 
     def block_account(self):
         """
-        this function blocks the developer's account
+        this function blocks the admin's account
         """
         self.account_status = 'blocked'
 
     def deleted_account(self):
         """
-        this function stages the developer's account for deletion
+        this function stages the admin's account for deletion
         """
         self.account_status = 'deleted'
 
     def verify_account(self):
         """
-        this function trigger the developer's account as verified
+        this function trigger the admin's account as verified
         """
         self.account_verified = True

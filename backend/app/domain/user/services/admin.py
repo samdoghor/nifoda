@@ -1,6 +1,6 @@
 """
-app/domain/services/contributor.py
-this file holds the contributor service info
+app/domain/services/admin.py
+this file holds the admin service info
 """
 
 # imports
@@ -10,16 +10,16 @@ from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
 from app.utils import parse_params
-from ..entities import ContributorEntity
-from ..repositories import ContributorRepository
+from ..entities import AdminEntity
+from ..repositories import AdminRepository
 from ..value_objects import EmailCheck, PasswordCheck
 
 
 # resources
 
 
-class ContributorService(Resource):
-    """ service for managing contributor """
+class AdminService(Resource):
+    """ service for managing admin """
 
     @staticmethod
     @parse_params(
@@ -30,14 +30,14 @@ class ContributorService(Resource):
         Argument("password", location="json", required=True),
     )
     def create(first_name, last_name, middle_name, email_address, password):
-        """Create a new contributor account"""
+        """Create a new admin account"""
 
         try:
 
             EmailCheck(email_address)
             password_check = PasswordCheck(password)
 
-            role = ContributorEntity(
+            role = AdminEntity(
                 id=None,
                 first_name=first_name,
                 last_name=last_name,
@@ -50,7 +50,7 @@ class ContributorService(Resource):
                 created_at=None,
                 updated_at=None,
             )
-            return ContributorRepository.create(role)
+            return AdminRepository.create(role)
 
         except ValueError as e:
             return jsonify({
@@ -68,11 +68,11 @@ class ContributorService(Resource):
 
     @staticmethod
     def read():
-        """ retrieves all contributors """
+        """ retrieves all admins """
 
         try:
 
-            return ContributorRepository.read()
+            return AdminRepository.read()
 
         except ValueError:
             return jsonify({
@@ -90,11 +90,11 @@ class ContributorService(Resource):
 
     @staticmethod
     def fetch(id):
-        """ retrieves one contributor by id """
+        """ retrieves one admin by id """
 
         try:
 
-            return ContributorRepository.fetch(id)
+            return AdminRepository.fetch(id)
 
         except ValueError:
             return jsonify({
@@ -118,12 +118,12 @@ class ContributorService(Resource):
         Argument("email_address", location="json"),
         Argument("password", location="json"),
     )
-    def update(id, **contributor: ContributorEntity):
-        """ update one contributor by id """
+    def update(id, **admin: AdminEntity):
+        """ update one admin by id """
 
         try:
 
-            return ContributorRepository.update(id, **contributor)
+            return AdminRepository.update(id, **admin)
 
         except ValueError as e:
             return jsonify({
@@ -141,10 +141,10 @@ class ContributorService(Resource):
 
     @staticmethod
     def delete(id):
-        """ delete one contributor by id """
+        """ delete one admin by id """
 
         try:
-            return ContributorRepository.delete(id)
+            return AdminRepository.delete(id)
 
         except ValueError:
             return jsonify({
