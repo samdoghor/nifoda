@@ -2,7 +2,7 @@
 this
 """
 
-import config
+from . import config
 from server import server as nifoda
 
 if __name__ == "__main__":
