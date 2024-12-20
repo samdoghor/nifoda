@@ -1,9 +1,11 @@
+const {nextui} = require('@nextui-org/theme');
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
-    content: [
+  content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/components/(button|chip|link|navbar|ripple|spinner).js"
   ],
   theme: {
   	extend: {
@@ -95,6 +97,6 @@ export default {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [nextui()],
 }
 

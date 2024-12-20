@@ -5,22 +5,26 @@ import {DotPattern} from "@/components/ui/dot-pattern";
 import {ArrowRightIcon} from "@radix-ui/react-icons";
 import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import ShineBorder from "@/components/ui/shine-border";
-import InteractiveHoverButton from "@/components/ui/interactive-hover-button";
 import Header from "@/components/custom/Header";
+import {Button} from "@nextui-org/button";
+import {Link} from "@nextui-org/link";
 
 const Index = () => {
     return (
         <>
             <div className={'w-full min-h-screen bg-black'}>
 
-                <div className={'flex flex-col justify-center items-center'}>
+                <div className={'w-full flex flex-col justify-center items-center'}>
                     <Header/>
                 </div>
 
                 <div className={'flex flex-col items-center justify-center mt-10'}>
+                    <h1 className="text-5xl font-extrabold tracking-widest !leading-[0] text-white">
+                        NIFODA
+                    </h1>
                     <div
                         className={cn(
-                            "group rounded-full border border-black/5 bg-transparent text-base transition-all ease-in hover:cursor-pointer hover:bg-neutral-800",
+                            "mb-8 group rounded-full border border-black/5 bg-neutral-800 text-base transition-all ease-in hover:cursor-pointer hover:bg-green-800",
                         )}
                     >
                         <AnimatedShinyText
@@ -30,16 +34,10 @@ const Index = () => {
                                 className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5"/>
                         </AnimatedShinyText>
                     </div>
-                    <h1 className="scroll-m-20 text-3xl font-extrabold tracking-widest lg:text-5xl text-white">
-                        NIFODA
-                    </h1>
-                    {/*<p className={'text-green-400 font-semibold tracking-widest lg:text-normal'}>*/}
-                    {/*    ..your comprehensive Nigeria food database/API*/}
-                    {/*</p>*/}
                     <div className={'flex flex-col items-center justify-center mb-16'}>
                         <ShineBorder
-                            className="text-sm bg-black text-neutral-300 leading-loose w-2/4 p-12 text-justify"
-                            color={'#404040'}
+                            className="text-sm bg-black text-neutral-300 leading-loose w-2/4 px-4 py-12 text-center"
+                            color={'#166534'}
                         >
                             <div>
                                 <p>
@@ -59,24 +57,26 @@ const Index = () => {
                                     Join us in revolutionizing food data accessibility in Nigeria!
                                 </p>
                             </div>
-
-                            <div className={'flex flex-row gap-8 mt-10'}>
-                                <InteractiveHoverButton text={'Contribute'} className={'text-black hover:bg-black'}/>
-                                {/*<InteractiveHoverButton text={'Test the API'} className={'hover:bg-black'}/>*/}
-                                <InteractiveHoverButton text={'Get API Key'} className={'text-black hover:bg-black'}/>
+                            <div className={'flex flex-row gap-8'}>
+                                <div className={'flex flex-row gap-8 mt-4'}>
+                                    <Button color="primary" className={'bg-green-800 text-white'}>
+                                        <Link className={'text-white'} href="#" >
+                                            Start Here
+                                        </Link>
+                                    </Button>
+                                    <Button color="primary" className={'bg-green-800 text-white'}>
+                                        <Link className={'text-white'} href="#" isExternal showAnchorIcon >
+                                            Try the API
+                                        </Link>
+                                    </Button>
+                                    {/*<InteractiveHoverButton text={'Start Here'} className={'text-text-white bg-green-700 hover:bg-black'}/>*/}
+                                </div>
                             </div>
-
                         </ShineBorder>
                     </div>
-                    <div className={'flex flex-row gap-8'}>
-                        {/*    <InteractiveHoverButton text={'Contribute'} className={'hover:bg-black'}/>*/}
-                        <InteractiveHoverButton text={'Test the API'} className={'hover:bg-black'}/>
-                        {/*    <InteractiveHoverButton text={'Get API Key'} className={'hover:bg-black'}/>*/}
-                    </div>
-
                     <DotPattern
                         className={cn(
-                            "[mask-image:radial-gradient(800px_circle_at_center,white,transparent)]",
+                            "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
                         )}
                     />
                 </div>
