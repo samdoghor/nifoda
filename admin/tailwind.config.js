@@ -5,7 +5,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|chip|link|navbar|ripple|spinner).js"
+    "./node_modules/@nextui-org/theme/dist/components/(button|chip|image|link|navbar|ripple|spinner).js"
   ],
   theme: {
   	extend: {
@@ -64,7 +64,8 @@ export default {
   		animation: {
   			'shiny-text': 'shiny-text 8s infinite',
   			shine: 'shine var(--duration) infinite linear',
-  			rainbow: 'rainbow var(--speed, 2s) infinite linear'
+  			rainbow: 'rainbow var(--speed, 2s) infinite linear',
+  			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite'
   		},
   		keyframes: {
   			'shiny-text': {
@@ -92,6 +93,14 @@ export default {
   				},
   				'100%': {
   					'background-position': '200%'
+  				}
+  			},
+  			ripple: {
+  				'0%, 100%': {
+  					transform: 'translate(-50%, -50%) scale(1)'
+  				},
+  				'50%': {
+  					transform: 'translate(-50%, -50%) scale(0.9)'
   				}
   			}
   		}

@@ -1,42 +1,32 @@
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/navbar";
 import {Button} from "@nextui-org/button";
 import {Link} from "@nextui-org/link";
-
-export const AcmeLogo = () => {
-    return (
-        <svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-            <path
-                clipRule="evenodd"
-                d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-                fill="currentColor"
-                fillRule="evenodd"
-            />
-        </svg>
-    );
-};
+import NifodaLogo from "../custom/NifodaLogo"
 
 const Header = () => {
     return (
         <>
             <Navbar className={'bg-neutral-950 text-white'} position="sticky">
                 <NavbarBrand>
-                    <AcmeLogo/>
-                    <p className="font-bold text-inherit">ACME</p>
+                    <Link as={'a'} href={'/'} className={'text-white'}>
+                    <NifodaLogo width={36} height={36} fill="#4ade80" />
+                    <p className="font-bold text-inherit pl-2">NIFODA</p>
+                    </Link>
                 </NavbarBrand>
-                <NavbarContent className="hidden sm:flex gap-4" justify="center">
+                <NavbarContent className="hidden sm:flex gap-6" justify="center">
                     <NavbarItem>
-                        <Link className={'text-white'} href="#">
-                            How To
+                        <Link className={'text-white font-semibold'} href="https://github.com/samdoghor/nifoda" isExternal showAnchorIcon>
+                            Github Repo
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link className={'text-white'} href="#">
-                            The Story
+                        <Link className={'text-white font-semibold'} href="#">
+                            Report Issues
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link className={'text-white'} href="#">
-                            Contact Us
+                        <Link className={'text-white font-semibold'} href="#">
+                            Make Suggestions
                         </Link>
                     </NavbarItem>
                 </NavbarContent>
