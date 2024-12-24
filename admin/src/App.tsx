@@ -1,12 +1,12 @@
-import Index from "@/pages/Index";
+import MainRoute from "@/routes/MainRoute";
 
 function App() {
 
-  return (
-    <>
-      <Index />
-    </>
-  )
+    return (
+        <>
+            <MainRoute/>
+        </>
+    )
 }
 
 export default App

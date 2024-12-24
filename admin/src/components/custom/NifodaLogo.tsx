@@ -5,6 +5,7 @@ interface LogoProps {
     'height': number,
     'fill': string,
 }
+
 const NifodaLogo: React.FC<LogoProps> = ({width, height, fill}) => {
     return (
         <>

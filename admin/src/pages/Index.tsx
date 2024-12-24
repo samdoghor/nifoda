@@ -7,7 +7,6 @@ import AnimatedShinyText from "@/components/ui/animated-shiny-text";
 import Header from "@/components/custom/Header";
 import {Button} from "@nextui-org/button";
 import {Link} from "@nextui-org/link";
-import {HiChevronDoubleDown} from "react-icons/hi";
 import NifodaLogo from "@/components/custom/NifodaLogo";
 import Footer from "@/components/custom/Footer";
 
@@ -15,13 +14,11 @@ import Footer from "@/components/custom/Footer";
 const Index = () => {
     return (
         <>
-            <div className={'w-full min-h-screen bg-black'}>
-
-                <div className={'w-full flex flex-col justify-center items-center'}>
-                    <Header/>
-                </div>
-
-                <div className={'flex flex-col items-center justify-center h-screen'}>
+            <div className={'w-full flex flex-col justify-center items-center'}>
+                <Header/>
+            </div>
+            <div className={'w-full bg-black h-min py-14'}>
+                <div className={'flex flex-col items-center justify-center'}>
                     <NifodaLogo width={150} height={150} fill={"#4ade80"}/>
                     <h1 className="text-5xl font-extrabold tracking-widest !leading-[0] text-white my-8">
                         NIFODA
@@ -52,14 +49,6 @@ const Index = () => {
                             </Button>
                         </div>
                     </div>
-
-                    <div>
-                        <Link as={'a'} href="#">
-                            <HiChevronDoubleDown
-                                className={'text-white font-black text-xl hover:text-green-800 hover:cursor-pointer'}/>
-                        </Link>
-                    </div>
-
                 </div>
 
                 <DotPattern
@@ -67,14 +56,11 @@ const Index = () => {
                         "[mask-image:radial-gradient(700px_circle_at_center,white,transparent)]",
                     )}
                 />
-
-                <div className={'w-full flex flex-col justify-center items-center'}>
-                    <Footer/>
-                </div>
-
             </div>
 
-
+            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
+                <Footer/>
+            </div>
         </>
     )
 
