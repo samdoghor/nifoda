@@ -2,11 +2,11 @@ const {nextui} = require('@nextui-org/theme');
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
-    content: [
-        "./index.html",
-        "./src/**/*.{js,ts,jsx,tsx}",
-        "./node_modules/@nextui-org/theme/dist/components/(button|chip|form|image|input|link|navbar|ripple|spinner).js"
-    ],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/@nextui-org/theme/dist/components/(button|chip|form|image|input|link|navbar|select|ripple|spinner|listbox|divider|popover|scroll-shadow).js"
+  ],
     theme: {
         extend: {
             borderRadius: {

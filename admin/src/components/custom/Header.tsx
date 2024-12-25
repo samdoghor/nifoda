@@ -2,7 +2,7 @@ import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/navbar
 import {Button} from "@nextui-org/button";
 import {Link} from "react-router";
 import NifodaLogo from "../custom/NifodaLogo"
-import {IoOpen} from "react-icons/io5";
+import {HiOutlineExternalLink} from "react-icons/hi";
 
 const Header = () => {
     return (
@@ -18,7 +18,7 @@ const Header = () => {
                     <NavbarItem>
                         <Link className={'text-white font-semibold flex justify-center items-center flex-row gap-2'}
                               to="https://github.com/samdoghor/nifoda" target={'_blank'}>
-                            Github Repo <IoOpen/>
+                            Github Repo <HiOutlineExternalLink/>
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
@@ -34,14 +34,18 @@ const Header = () => {
                 </NavbarContent>
                 <NavbarContent justify="end">
                     <NavbarItem className="hidden lg:flex">
-                        <Button as={Link} color="primary" href="#" variant="flat" className={'bg-green-800 text-white'}>
-                            Sign In
-                        </Button>
+                        <Link to="/auth/login">
+                            <Button color="primary" variant="flat" className={'bg-green-800 text-white'}>
+                                Sign In
+                            </Button>
+                        </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Button as={Link} color="primary" href="#" variant="flat" className={'bg-green-800 text-white'}>
-                            Sign Up
-                        </Button>
+                        <Link to="/auth/signup">
+                            <Button color="primary" variant="flat" className={'bg-green-800 text-white'}>
+                                Sign Up
+                            </Button>
+                        </Link>
                     </NavbarItem>
                 </NavbarContent>
             </Navbar>
