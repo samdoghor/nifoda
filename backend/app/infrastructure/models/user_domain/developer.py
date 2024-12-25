@@ -22,7 +22,7 @@ class DeveloperModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     first_name = db.Column(db.String(), nullable=False)
     last_name = db.Column(db.String(), nullable=False)
-    middle_name = db.Column(db.String(), nullable=False)
+    middle_name = db.Column(db.String(), nullable=True)
     email_address = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
     secret_key = db.Column(db.String(), unique=True, nullable=False)
