@@ -1,11 +1,57 @@
+import {useCreateContributor} from "@/hooks/useContributor.ts";
+import {useToast} from "@/hooks/use-toast.ts";
+import {useFormik} from "formik";
+import {useEffect} from "react";
 import Header from "@/components/custom/Header.tsx";
 import {Form} from "@nextui-org/form";
 import {Input} from "@nextui-org/input";
 import {Button} from "@nextui-org/button";
+import {Link, useNavigate} from "react-router";
 import Footer from "@/components/custom/Footer.tsx";
-import {Link} from "react-router";
 
-const Register = () => {
+const Developer = () => {
+
+    const navigate = useNavigate();
+
+    const {mutate: createDeveloper, isError: isErrorDeveloper, isSuccess: isSuccessDeveloper, error: errorDeveloper, data: dataDeveloper} = useCreateContributor();
+    const {toast} = useToast()
+
+    const formikDeveloper = useFormik({
+        initialValues: {
+            first_name: '',
+            last_name: '',
+            middle_name: '',
+            email_address: '',
+            password: '',
+        },
+        onSubmit: values => {
+            createDeveloper(values);
+        },
+    });
+
+    useEffect(() => {
+
+        const userRole = localStorage.getItem("role");
+
+        if (userRole !== "developer") {
+            navigate("/auth/signup");
+        }
+
+        if (isSuccessDeveloper) {
+            toast({
+                title: dataDeveloper?.code_message,
+                description: dataDeveloper?.data,
+            })
+        }
+
+        if (isErrorDeveloper) {
+            toast({
+                title: errorDeveloper?.name,
+                description: errorDeveloper?.message,
+            });
+        }
+    }, [isSuccessDeveloper, isErrorDeveloper, dataDeveloper, errorDeveloper, toast]);
+
     return (
         <>
             <div className={'w-full flex flex-col justify-center items-center'}>
@@ -13,12 +59,13 @@ const Register = () => {
             </div>
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black py-20'}>
                 <div className={'bg-neutral-950 w-2/6 rounded-2xl flex flex-col p-10 border-gray-600 border'}>
-                    <h3 className={'font-bold text-2xl tracking-widest text-white'}> Register </h3>
-                    <p className={'text-xs pt-2 pb-10 text-gray-400 leading-loose tracking-widest'}> If you are registering as a developer,
+                    <h3 className={'font-bold text-2xl tracking-widest text-white'}> For Developers </h3>
+                    <p className={'text-xs pt-2 pb-10 text-gray-400 leading-loose tracking-widest'}> If you are
+                        registering as a developer,
                         after registration,
                         login to see your API Key and Secret Key </p>
 
-                    <Form className={'w-full flex flex-col gap-8'} autoComplete={'on'}>
+                    <Form className={'w-full flex flex-col gap-8'} autoComplete={'on'} onSubmit={formikDeveloper.handleSubmit}>
 
                         <Input
                             label="First Name"
@@ -29,6 +76,8 @@ const Register = () => {
                             color={'secondary'}
                             variant="underlined"
                             classNames={{label: '!text-gray-400 mb-4', input: 'text-white'}}
+                            onChange={formikDeveloper.handleChange}
+                            value={formikDeveloper.values.first_name}
                         />
                         <Input
                             label="Last Name"
@@ -39,6 +88,8 @@ const Register = () => {
                             color={'secondary'}
                             variant="underlined"
                             classNames={{label: '!text-gray-400 mb-4', input: 'text-white'}}
+                            onChange={formikDeveloper.handleChange}
+                            value={formikDeveloper.values.last_name}
                         />
                         <Input
                             label="Middle Name"
@@ -48,6 +99,8 @@ const Register = () => {
                             color={'secondary'}
                             variant="underlined"
                             classNames={{label: '!text-gray-400 mb-4', input: 'text-white'}}
+                            onChange={formikDeveloper.handleChange}
+                            value={formikDeveloper.values.middle_name}
                         />
                         <Input
                             label="Email Address"
@@ -58,6 +111,8 @@ const Register = () => {
                             color={'secondary'}
                             variant="underlined"
                             classNames={{label: '!text-gray-400 mb-4', input: 'text-white'}}
+                            onChange={formikDeveloper.handleChange}
+                            value={formikDeveloper.values.email_address}
                         />
                         <Input
                             label="Password"
@@ -68,6 +123,8 @@ const Register = () => {
                             color={'secondary'}
                             variant="underlined"
                             classNames={{label: '!text-gray-400 mb-4', input: 'text-white'}}
+                            onChange={formikDeveloper.handleChange}
+                            value={formikDeveloper.values.password}
                         />
                         <div className={'flex justify-center items-center w-full'}>
                             <Button color="default" size="md"
@@ -91,4 +148,4 @@ const Register = () => {
         </>
     );
 };
-export default Register;
+export default Developer;
