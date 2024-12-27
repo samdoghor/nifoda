@@ -26,14 +26,6 @@ server = Flask(__name__)
 # security
 
 Talisman(server)
-origins = [config.frontend_application_url,
-           config.admin_application_url]
-cors = CORS(server, resources={
-    r"/nifoda/*": {"origins": origins}},
-            supports_credentials=True,
-            methods=['post', 'get', 'put', 'delete'],
-            allow_headers=["Authorization", "Content-Type"],
-            max_age=3600)
 server.config['SECRET_KEY'] = config.secret_key
 
 # database
@@ -43,6 +35,14 @@ server.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = config.sqlalchemy_track_modifi
 db.init_app(server)
 db.app = server
 migrate = Migrate(server, db)
+
+allowed_origins = [config.frontend_application_url, config.admin_application_url]
+cors = CORS(server,
+            resources={r"/nifoda/*": {"origins": allowed_origins}},
+            supports_credentials=True,
+            methods=['post', 'get', 'put', 'delete'],
+            allow_headers=["Authorization", "Content-Type"],
+            max_age=3600)
 
 # routes
 

@@ -1,12 +1,14 @@
-import Index from "@/pages/Index";
+import MainRoute from "@/routes/MainRoute";
+import {Toaster} from "@/components/ui/toaster";
 
 function App() {
 
-  return (
-    <>
-      <Index />
-    </>
-  )
+    return (
+        <>
+            <MainRoute/>
+            <Toaster />
+        </>
+    )
 }
 
 export default App
