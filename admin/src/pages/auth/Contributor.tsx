@@ -8,6 +8,12 @@ import {useFormik} from "formik";
 import {useToast} from "@/hooks/use-toast";
 import {useEffect} from "react";
 import {useCreateContributor} from "@/hooks/useContributor.ts";
+import CryptoJS from "crypto-js";
+
+
+const userRole = localStorage.getItem("selection");
+const decryptedContributor = userRole ? CryptoJS.AES.decrypt(userRole, `${import.meta.env.VITE_SECRET_KEY}`).toString(CryptoJS.enc.Utf8) : null;
+
 
 const Contributor = () => {
 
@@ -31,9 +37,7 @@ const Contributor = () => {
 
     useEffect(() => {
 
-        const userRole = localStorage.getItem("role");
-
-        if (userRole !== "contributor") {
+        if (decryptedContributor !== `${import.meta.env.VITE_REG_CONTRIBUTOR}`) {
             navigate("/auth/signup");
         }
 

@@ -8,6 +8,10 @@ import {Input} from "@nextui-org/input";
 import {Button} from "@nextui-org/button";
 import {Link, useNavigate} from "react-router";
 import Footer from "@/components/custom/Footer.tsx";
+import CryptoJS from "crypto-js";
+
+const userRole = localStorage.getItem("selection");
+const decryptedDeveloper = userRole ? CryptoJS.AES.decrypt(userRole, `${import.meta.env.VITE_SECRET_KEY}`).toString(CryptoJS.enc.Utf8) : null;
 
 const Developer = () => {
 
@@ -31,9 +35,7 @@ const Developer = () => {
 
     useEffect(() => {
 
-        const userRole = localStorage.getItem("role");
-
-        if (userRole !== "developer") {
+        if (decryptedDeveloper !== `${import.meta.env.VITE_REG_DEVELOPER}`) {
             navigate("/auth/signup");
         }
 

@@ -7,11 +7,16 @@ import {Select, SelectItem} from "@nextui-org/select";
 import React, {useState} from "react";
 import {useNavigate} from "react-router";
 import {useToast} from "@/hooks/use-toast.ts";
+import CryptoJS from 'crypto-js';
 
 const roles = [
     {key: "contributor", label: "Contributor"},
     {key: "developer", label: "Developer"},
 ];
+
+const encryptedContributor = CryptoJS.AES.encrypt(`${import.meta.env.VITE_REG_CONTRIBUTOR}`, `${import.meta.env.VITE_SECRET_KEY}`).toString();
+const encryptedDeveloper = CryptoJS.AES.encrypt(`${import.meta.env.VITE_REG_DEVELOPER}`, `${import.meta.env.VITE_SECRET_KEY}`).toString();
+
 
 const ChooseRole = () => {
 
@@ -22,12 +27,12 @@ const ChooseRole = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        if (selectedRole === "developer") {
-            localStorage.setItem("role", "developer");
-            navigate("/auth/signup/developer");
-        } else if (selectedRole === "contributor") {
-            localStorage.setItem("role", "contributor");
+        if (selectedRole === "contributor") {
+            localStorage.setItem("selection", encryptedContributor);
             navigate("/auth/signup/contributor");
+        } else if (selectedRole === "developer") {
+            localStorage.setItem("selection", encryptedDeveloper);
+            navigate("/auth/signup/developer");
         } else {
             toast({
                 title: "Error",
@@ -37,7 +42,7 @@ const ChooseRole = () => {
     };
 
     const handleRoleChange = (value: string) => {
-        setSelectedRole(value); // Update the selected role when changed
+        setSelectedRole(value);
     };
 
     return (
@@ -47,11 +52,19 @@ const ChooseRole = () => {
             </div>
 
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black text-white py-8'}>
+                <div className={'w-2/4 text-center leading-relaxed tracking-widest text-sm'}>
+                    <p> You can either signup as a contributor or a developer. </p>
+                    <p> Contributors add food information to our database manually, no API key provided. Developers
+                        receive
+                        an API key to integrate NIFODA with their products and services. </p>
+                </div>
                 <div className={'my-8 py-16 px-20 w-2/4 bg-neutral-950 rounded-3xl border-gray-600 border'}>
-                    <Form className={'w-full flex flex-col justify-center items-center gap-8'} autoComplete={'on'} onSubmit={handleSubmit}>
+
+                    <Form className={'w-full flex flex-col justify-center items-center gap-8'} autoComplete={'on'}
+                          onSubmit={handleSubmit}>
                         <Select
                             disableSelectorIconRotation
-                            label="Developer or Contributor?"
+                            label="Contributor or Developer?"
                             labelPlacement="outside"
                             placeholder="Select a Path"
                             selectorIcon={<HiChevronUpDown/>}
