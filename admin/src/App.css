@@ -32,7 +32,8 @@
         --color-2: 270 100% 63%;
         --color-3: 210 100% 63%;
         --color-4: 195 100% 63%;
-        --color-5: 90 100% 63%
+        --color-5: 90 100% 63%;
+        --autofilltextwhite: #ffffff;
     }
 
     .dark {
@@ -76,4 +77,10 @@
     body {
         @apply bg-background text-foreground;
     }
+}
+
+.autoFillTextWhite:-webkit-autofill,
+.autoFillTextWhite:-webkit-autofill:hover,
+.autoFillTextWhite:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff; /* your text color */
 }

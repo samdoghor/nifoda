@@ -7,7 +7,7 @@ export const useCreateContributor = () => {
     return useMutation({
         mutationFn: async (ContributorCreateType: ContributorCreateType) => {
             const response = await axios.post(
-                `${import.meta.env.VITE_FULL_SERVER_URL}${USER_DOMAIN_API_ENDPOINTS.CONTRIBUTORS}`,
+                `${import.meta.env.VITE_FULL_SERVER_URL}/${USER_DOMAIN_API_ENDPOINTS.CONTRIBUTORS}`,
                 ContributorCreateType,
                 {
                     headers: {

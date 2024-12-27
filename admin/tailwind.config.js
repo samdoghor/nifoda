@@ -103,9 +103,11 @@ export default {
                         transform: 'translate(-50%, -50%) scale(0.9)'
                     }
                 }
-            }
+            },
         }
     },
-    plugins: [nextui()],
+    plugins: [
+        nextui(),
+    ],
 }
 

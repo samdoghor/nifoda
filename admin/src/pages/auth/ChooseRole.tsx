@@ -4,19 +4,18 @@ import {Button} from "@nextui-org/button";
 import Footer from "@/components/custom/Footer.tsx";
 import {HiChevronUpDown} from "react-icons/hi2";
 import {Select, SelectItem} from "@nextui-org/select";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router";
 import {useToast} from "@/hooks/use-toast.ts";
-import CryptoJS from 'crypto-js';
+import {EncryptionUtil} from "@/pages/utils/CipherUtil";
 
 const roles = [
     {key: "contributor", label: "Contributor"},
     {key: "developer", label: "Developer"},
 ];
 
-const encryptedContributor = CryptoJS.AES.encrypt(`${import.meta.env.VITE_REG_CONTRIBUTOR}`, `${import.meta.env.VITE_SECRET_KEY}`).toString();
-const encryptedDeveloper = CryptoJS.AES.encrypt(`${import.meta.env.VITE_REG_DEVELOPER}`, `${import.meta.env.VITE_SECRET_KEY}`).toString();
-
+const encryptedContributor = EncryptionUtil(`${import.meta.env.VITE_REG_CONTRIBUTOR}`);
+const encryptedDeveloper = EncryptionUtil(`${import.meta.env.VITE_REG_DEVELOPER}`);
 
 const ChooseRole = () => {
 
@@ -35,11 +34,18 @@ const ChooseRole = () => {
             navigate("/auth/signup/developer");
         } else {
             toast({
-                title: "Error",
-                description: "Please select a role",
+                title: "Path Error",
+                description: "Please select a path to continue",
+                className: "bg-red-900 text-white top-0 right-0 flex fixed md:max-w-[400px] md:max-h-[100px] md:top-4 md:right-4",
+                duration: 3000,
+                variant: 'default'
             })
         }
     };
+
+    useEffect(() => {
+        localStorage.removeItem("selection");
+    }, [])
 
     const handleRoleChange = (value: string) => {
         setSelectedRole(value);
