@@ -13,6 +13,9 @@ const Developer = lazy(() => import("@/pages/auth/Developer.tsx"));
 const Login = lazy(() => import("@/pages/auth/Login.tsx"));
 const ForgotPassword = lazy(() => import("@/pages/auth/ForgotPassword.tsx"));
 
+// Dashboard Routes
+const Dashboard = lazy(() => import("@/pages/account/Dashboard"));
+
 const MainRoute = () => {
     return (
         <>
@@ -28,6 +31,9 @@ const MainRoute = () => {
                     <Route path="/auth/signup/developer" element={<Developer/>}/>
                     <Route path="/auth/login" element={<Login/>}/>
                     <Route path="/auth/forgot-password" element={<ForgotPassword/>}/>
+
+                    {/*Dashboard Routes*/}
+                    <Route path="/account/dashboard" element={<Dashboard/>}/>
                 </Routes>
             </Suspense>
         </>

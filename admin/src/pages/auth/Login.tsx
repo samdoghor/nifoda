@@ -11,7 +11,9 @@ import {useEffect, useState} from "react";
 import {AxiosError} from "axios";
 import {ErrorResponseData} from "@/data/types/axiosErrorRes";
 import {useAuthLogin} from "@/hooks/useAuthentication";
-import { IoIosEye, IoIosEyeOff } from "react-icons/io";
+import {IoIosEye, IoIosEyeOff} from "react-icons/io";
+import Cookies from "js-cookie";
+import {cookie_config} from "@/config/cookie_config";
 
 const Login = () => {
 
@@ -52,12 +54,15 @@ const Login = () => {
         if (isSuccessLogin) {
             toast({
                 title: dataLogin?.code_message,
-                description: dataLogin?.data,
+                description: dataLogin?.data?.data,
                 className: "bg-green-900 text-white top-0 right-0 flex fixed md:max-w-[400px] md:max-h-[100px] md:top-4 md:right-4",
                 duration: 3000,
                 variant: 'default'
             })
-            navigate("/profile");
+            const token = dataLogin?.data?.token;
+            Cookies.set('_nfdt', token, cookie_config)
+            localStorage.setItem('_nfdt', token);
+            navigate("/account/dashboard");
         }
 
         if (isErrorLogin) {
@@ -82,7 +87,8 @@ const Login = () => {
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black py-20'}>
                 <div className={'bg-neutral-950 w-2/6 rounded-2xl flex flex-col p-10 border-gray-600 border'}>
                     <h3 className={'font-bold text-2xl tracking-widest text-white'}> Login </h3>
-                    <p className={'text-xs pt-2 pb-10 text-gray-400 leading-loose tracking-widest'}> Enter your email and password below to login to your
+                    <p className={'text-xs pt-2 pb-10 text-gray-400 leading-loose tracking-widest'}> Enter your email
+                        and password below to login to your
                         account </p>
 
                     <Form className={'w-full flex flex-col gap-8'} autoComplete={'on'}
