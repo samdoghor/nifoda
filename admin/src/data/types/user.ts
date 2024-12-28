@@ -1,3 +1,8 @@
+export interface AuthLoginType {
+    email_address: string
+    password: string
+}
+
 export interface ContributorCreateType {
     first_name: string
     last_name: string
