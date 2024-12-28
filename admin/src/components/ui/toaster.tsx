@@ -17,14 +17,10 @@ export function Toaster() {
         return (
           <Toast key={id} {...props}>
             <div className="flex flex-col justify-start text-left gap-1">
-              <p>
               {title && <ToastTitle>{title}</ToastTitle>}
-              </p>
-              <p>
               {description && (
                 <ToastDescription>{description}</ToastDescription>
               )}
-                </p>
             </div>
             {action}
             <ToastClose />

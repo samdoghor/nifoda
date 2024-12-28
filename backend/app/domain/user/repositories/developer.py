@@ -12,6 +12,7 @@ from sqlalchemy.exc import DBAPIError, DisconnectionError, IntegrityError, Progr
 
 from ..entities import DeveloperEntity
 from ..value_objects import EmailCheck, PasswordCheck
+from ....infrastructure.models import ContributorModel
 from ....infrastructure.models.user_domain import DeveloperModel, RoleModel
 from ....utils import SecretGenerator
 
@@ -28,6 +29,7 @@ class DeveloperRepository(Resource):
 
         try:
             existing_developer = DeveloperModel.query.filter_by(email_address=developer.email_address).first()
+            existing_contributor = ContributorModel.query.filter_by(email_address=developer.email_address).first()
             role = RoleModel.query.filter_by(role="developer").first()
 
             if existing_developer:
@@ -35,6 +37,13 @@ class DeveloperRepository(Resource):
                     "code": 409,
                     'code_message': 'conflict',
                     "data": f"{developer.email_address} already has an account",
+                }), 409
+
+            if existing_contributor:
+                return jsonify({
+                    "code": 409,
+                    'code_message': 'conflict',
+                    "data": f"{developer.email_address} already has an account as a contributor",
                 }), 409
 
             # create new developer account

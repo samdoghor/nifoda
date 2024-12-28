@@ -29,6 +29,7 @@ class AdminModel(db.Model, BaseModel, metaclass=MetaBaseModel):
                                default='unverifeid',
                                nullable=False)  # unverifeid, active, blocked, deleted
     account_verified = db.Column(db.Boolean(), default=False, nullable=False)
+    _jwt_id = db.Column(db.String(), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 
