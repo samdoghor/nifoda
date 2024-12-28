@@ -6,31 +6,30 @@ Return: integer|string
 """
 
 from datetime import datetime, timedelta
-from flask import request
 
 import jwt
+from flask import request
 
 from .. import config
 
 
-def encode_auth_token(id, first_name, last_name):
+def encode_auth_token(id, first_name, last_name, time_length, jti):
     """
     Generates the Auth Token
     :return: string
     """
     try:
         payload = {
-            'exp': datetime.now() + timedelta(days=0, seconds=3600),  # noqa
+            'exp': datetime.now() + timedelta(days=0, seconds=time_length),  # noqa
             'iat': datetime.now(),
-            'sub': id,
-            'name': f'{first_name} {last_name}',
-            'iss': request.url
+            'nbf': datetime.now(),
+            'sub': str(id),
+            'display_name': f'{first_name} {last_name}',
+            'iss': request.url,
+            'jti': jti
         }
-        return jwt.encode(
-            payload,
-            config.secret_key,
-            algorithm=config.algorithm
-        )
+        token = jwt.encode(payload, config.secret_key, algorithm=config.algorithm)
+        return token
     except Exception as e:
         return e
 

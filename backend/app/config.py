@@ -35,6 +35,7 @@ api_application_root = os.getenv("API_APPLICATION_ROOT")
 application_host = os.getenv("APPLICATION_HOST")
 application_port = int(os.getenv("APPLICATION_PORT"))
 algorithm = os.getenv("ALGORITHM")
+login_exp: int = int(os.getenv("LOGIN_EXP"))
 
 frontend_application_url = os.getenv("FRONTEND_APPLICATION_URL")
 admin_application_url = os.getenv("ADMIN_APPLICATION_URL")

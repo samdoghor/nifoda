@@ -30,8 +30,6 @@ class AuthenticationService(Resource):
 
         try:
 
-            print(request.url)
-
             if not email_address:
                 return jsonify({
                     "code": 400,
@@ -59,9 +57,9 @@ class AuthenticationService(Resource):
                 "data": f"an incorrect value was inputted: {str(e)}",
             }), 500
 
-        except TypeError as e:
-            return jsonify({
-                "code": 500,
-                'code_message': 'type error',
-                "data": f"an incorrect datatype was inputted: {str(e)}",
-            }), 500
+        # except TypeError as e:
+        #     return jsonify({
+        #         "code": 500,
+        #         'code_message': 'type error',
+        #         "data": f"an incorrect datatype was inputted: {str(e)}",
+        #     }), 500

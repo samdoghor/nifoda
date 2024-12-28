@@ -2,8 +2,7 @@
 app/domain/repositories/authentication.py
 this file holds the authentication repository info
 """
-
-# imports
+import secrets
 
 from flask import jsonify
 from flask_restful import Resource
@@ -11,8 +10,13 @@ from psycopg2.errors import DataError, InternalError, OperationalError
 from sqlalchemy.exc import DBAPIError, DisconnectionError, ProgrammingError
 
 from ..value_objects import LoginCredential, PasswordCheck
+from .... import config
 from ....infrastructure.models import ContributorModel, DeveloperModel
 from ....infrastructure.models.user_domain import AdminModel
+from ....utils import encode_auth_token
+
+
+# imports
 
 
 # resources
@@ -53,12 +57,23 @@ class AuthenticationRepository(Resource):
                     "data": "incorrect password"
                 }), 401
 
+            jti = secrets.token_urlsafe(16)
+            access_token = encode_auth_token(user_email.id,
+                                             user_email.first_name,
+                                             user_email.last_name,
+                                             config.login_exp,
+                                             jti)
+
+            user_email._jwt_id = jti
+            user_email.save()
+
             return jsonify({
                 'code': 200,
                 'code_message': 'successful',
                 'data': {
-                    'id': user_email.id,
-                    'email_address': user_email.email_address,
+                    'data': f'{user_email.email_address}, logged in successfully',
+                    'token': access_token,
+                    'expires': config.login_exp,
                 },
             }), 200
 
