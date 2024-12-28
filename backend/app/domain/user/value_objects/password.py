@@ -35,7 +35,8 @@ class PasswordCheck:
 
         self.password = generate_password_hash(password)
 
-    def check_password(self, password: str):
+    @staticmethod
+    def check_password(passwordhash, password: str):
         """ the """
 
-        return check_password_hash(self.password, password)
+        return check_password_hash(passwordhash, password)
