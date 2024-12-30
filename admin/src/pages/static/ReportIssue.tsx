@@ -1,5 +1,3 @@
-import Header from "@/components/custom/Header.tsx";
-import Footer from "@/components/custom/Footer.tsx";
 import {Link} from "@nextui-org/link";
 import {Form} from "@nextui-org/form";
 import {Input, Textarea} from "@nextui-org/input";
@@ -25,10 +23,6 @@ const ReportIssue = () => {
 
     return (
         <>
-            <div className={'w-full flex flex-col justify-center items-center'}>
-                <Header/>
-            </div>
-
             <div
                 className={'w-full flex flex-col justify-center items-center min-h-screen bg-black text-white py-8'}>
                 <NifodaLogo width={150} height={150} fill={"#4ade80"}/>
@@ -108,13 +102,10 @@ const ReportIssue = () => {
                             />
                             <p>{file && <span>{file.name}</span>}</p>
                         </div>
-                        <Button color="default" size="lg" className={'w-full font-semibold text-base tracking-widest'}> Send Report </Button>
+                        <Button color="default" size="lg"
+                                className={'w-full font-semibold text-base tracking-widest'}> Send Report </Button>
                     </Form>
                 </div>
-            </div>
-
-            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
-                <Footer/>
             </div>
         </>
     );

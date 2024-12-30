@@ -1,8 +1,6 @@
-import Header from "@/components/custom/Header";
 import {Form} from "@nextui-org/form";
 import {Input} from "@nextui-org/input";
 import {Button} from "@nextui-org/button";
-import Footer from "@/components/custom/Footer";
 import {Link, useNavigate} from "react-router";
 import {useFormik} from "formik";
 import {useToast} from "@/hooks/use-toast";
@@ -95,9 +93,6 @@ const Contributor = () => {
 
     return (
         <>
-            <div className={'w-full flex flex-col justify-center items-center'}>
-                <Header/>
-            </div>
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black py-20'}>
                 <div className={'bg-neutral-950 w-2/5 rounded-2xl flex flex-col p-10 border-gray-600 border'}>
                     <h3 className={'font-bold text-2xl tracking-widest text-white'}> For Contributors</h3>
@@ -210,9 +205,6 @@ const Contributor = () => {
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
-                <Footer/>
             </div>
         </>
     );

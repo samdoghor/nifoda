@@ -9,6 +9,9 @@ export default {
   ],
     theme: {
         extend: {
+            backgroundImage: {
+                'dashboard-cover': "url('/img/world-effect.svg')",
+            },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',

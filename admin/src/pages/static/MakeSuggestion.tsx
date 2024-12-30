@@ -1,17 +1,11 @@
-import Header from "@/components/custom/Header.tsx";
 import {Form} from "@nextui-org/form";
 import {Input, Textarea} from "@nextui-org/input";
 import {Button} from "@nextui-org/button";
-import Footer from "@/components/custom/Footer.tsx";
 import NifodaLogo from "@/components/custom/NifodaLogo.tsx";
 
 const MakeSuggestion = () => {
     return (
         <>
-            <div className={'w-full flex flex-col justify-center items-center'}>
-                <Header/>
-            </div>
-
             <div
                 className={'w-full flex flex-col justify-center items-center min-h-screen bg-black text-white py-8'}>
                 <NifodaLogo width={150} height={150} fill={"#4ade80"}/>
@@ -85,13 +79,10 @@ const MakeSuggestion = () => {
                             description="please separate the links with new lines"
                         />
 
-                        <Button color="default" size="lg" className={'w-full font-semibold text-base tracking-widest'}> Send Improvement </Button>
+                        <Button color="default" size="lg"
+                                className={'w-full font-semibold text-base tracking-widest'}> Send Improvement </Button>
                     </Form>
                 </div>
-            </div>
-
-            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
-                <Footer/>
             </div>
         </>
     );

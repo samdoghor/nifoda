@@ -1,5 +1,3 @@
-import Header from "@/components/custom/Header";
-import Footer from "@/components/custom/Footer";
 import {Input} from "@nextui-org/input";
 import {Button} from "@nextui-org/button";
 import {Form} from "@nextui-org/form";
@@ -81,9 +79,6 @@ const Login = () => {
 
     return (
         <>
-            <div className={'w-full flex flex-col justify-center items-center'}>
-                <Header/>
-            </div>
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black py-20'}>
                 <div className={'bg-neutral-950 w-2/6 rounded-2xl flex flex-col p-10 border-gray-600 border'}>
                     <h3 className={'font-bold text-2xl tracking-widest text-white'}> Login </h3>
@@ -158,9 +153,6 @@ const Login = () => {
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
-                <Footer/>
             </div>
         </>
     );
