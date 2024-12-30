@@ -26,7 +26,8 @@ const ForgotPassword = () => {
                         />
                         <div className={'flex justify-center items-center w-full'}>
                             <Button color="default" size="md"
-                                    className={'w-full font-semibold text-base tracking-widest'}> Reset Password </Button>
+                                    className={'w-full font-semibold text-base tracking-widest'}> Reset
+                                Password </Button>
                         </div>
                     </Form>
                 </div>

@@ -2,11 +2,11 @@ const {nextui} = require('@nextui-org/theme');
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: ["class"],
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|chip|form|image|input|link|navbar|select|ripple|spinner|listbox|divider|popover|scroll-shadow).js"
-  ],
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+        "./node_modules/@nextui-org/theme/dist/components/(button|chip|form|image|input|link|navbar|select|ripple|spinner|listbox|divider|popover|scroll-shadow).js"
+    ],
     theme: {
         extend: {
             backgroundImage: {
@@ -62,7 +62,17 @@ export default {
                 'color-2': 'hsl(var(--color-2))',
                 'color-3': 'hsl(var(--color-3))',
                 'color-4': 'hsl(var(--color-4))',
-                'color-5': 'hsl(var(--color-5))'
+                'color-5': 'hsl(var(--color-5))',
+                sidebar: {
+                    DEFAULT: 'hsl(var(--sidebar-background))',
+                    foreground: 'hsl(var(--sidebar-foreground))',
+                    primary: 'hsl(var(--sidebar-primary))',
+                    'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+                    accent: 'hsl(var(--sidebar-accent))',
+                    'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+                    border: 'hsl(var(--sidebar-border))',
+                    ring: 'hsl(var(--sidebar-ring))'
+                }
             },
             animation: {
                 'shiny-text': 'shiny-text 8s infinite',
@@ -106,7 +116,7 @@ export default {
                         transform: 'translate(-50%, -50%) scale(0.9)'
                     }
                 }
-            },
+            }
         }
     },
     plugins: [

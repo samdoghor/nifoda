@@ -497,7 +497,8 @@ const Dashboard = () => {
 
                             <Card className="flex flex-col bg-transparent border-none w-1/3">
                                 <CardHeader className="items-center pb-0">
-                                    <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>API Calls Status</CardTitle>
+                                    <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>API Calls
+                                        Status</CardTitle>
                                 </CardHeader>
                                 <CardContent className="flex-1 pb-0">
                                     <ChartContainer
