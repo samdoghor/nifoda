@@ -12,6 +12,9 @@ import {useAuthLogin} from "@/hooks/useAuthentication";
 import {IoIosEye, IoIosEyeOff} from "react-icons/io";
 import Cookies from "js-cookie";
 import {cookie_config} from "@/config/cookie_config";
+import {EncryptionUtil} from "@/pages/utils/CipherUtil.ts";
+
+const encryptedLoggedIn = EncryptionUtil(`${import.meta.env.VITE_LOGGED_IN}`);
 
 const Login = () => {
 
@@ -59,8 +62,11 @@ const Login = () => {
             })
             const token = dataLogin?.data?.token;
             Cookies.set('_nfdt', token, cookie_config)
+            Cookies.set('_nfdldi', encryptedLoggedIn, cookie_config)
             localStorage.setItem('_nfdt', token);
-            navigate("/account/dashboard");
+            localStorage.setItem('_nfdldi', encryptedLoggedIn);
+            navigate("/account/dashboard", { replace: true });
+            window.location.reload();
         }
 
         if (isErrorLogin) {

@@ -28,7 +28,7 @@ const chartData = [
 const chartConfig = {
     calls: {
         label: "Desktop",
-        color: "#166534",
+        color: "#10b981",
     }
 } satisfies ChartConfig
 
@@ -160,7 +160,7 @@ const Dashboard = () => {
                     <div className={'min-h-screen p-4 bg-dashboard-cover bg-cover bg-center'}>
                         <div className={'min-h-screen bg-zinc-950 opacity-95 rounded-2xl px-4 py-1'}>
                             <div className={'flex flex-row gap-4 my-4'}>
-                                <Card className={'bg-black rounded-xl text-white border-none w-1/4 pt-4'}>
+                                <Card className={'bg-red-900 rounded-xl text-white border-none w-1/4 pt-4'}>
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total Food
                                         Items </CardTitle>
                                     <CardContent className={'text-xl text-center pt-2'}>
@@ -171,7 +171,7 @@ const Dashboard = () => {
                                         items in the
                                         database </CardFooter>
                                 </Card>
-                                <Card className={'bg-black rounded-xl text-white border-none w-1/4 pt-4'}>
+                                <Card className={'bg-pink-900 rounded-xl text-white border-none w-1/4 pt-4'}>
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total
                                         Contributors </CardTitle>
                                     <CardContent className={'text-xl text-center pt-2'}>
@@ -181,7 +181,7 @@ const Dashboard = () => {
                                         contributors in the
                                         database </CardFooter>
                                 </Card>
-                                <Card className={'bg-black rounded-xl text-white border-none w-1/4 pt-4'}>
+                                <Card className={'bg-indigo-900 rounded-xl text-white border-none w-1/4 pt-4'}>
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total
                                         Active
                                         Contributors </CardTitle>
@@ -191,7 +191,7 @@ const Dashboard = () => {
                                     <CardFooter className={'text-xs text-gray-400 text-center'}> contributors
                                         who added an item in the past 30 days </CardFooter>
                                 </Card>
-                                <Card className={'bg-black rounded-xl text-white border-none w-1/4 pt-4'}>
+                                <Card className={'bg-cyan-900 rounded-xl text-white border-none w-1/4 pt-4'}>
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total API
                                         Calls
                                         this Week </CardTitle>
@@ -202,20 +202,9 @@ const Dashboard = () => {
                                         in
                                         the last 7 days </CardFooter>
                                 </Card>
-                                {/*<Card className={'bg-black rounded-xl text-white border-none w-1/5 pt-4'}>*/}
-                                {/*    <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total API*/}
-                                {/*        Calls*/}
-                                {/*        this Month </CardTitle>*/}
-                                {/*    <CardContent className={'text-xl text-center pt-2'}>*/}
-                                {/*        5000*/}
-                                {/*    </CardContent>*/}
-                                {/*    <CardFooter className={'text-xs text-gray-400 text-center'}> the number of API calls*/}
-                                {/*        in*/}
-                                {/*        the last 30 days </CardFooter>*/}
-                                {/*</Card>*/}
                             </div>
 
-                            <div className={'flex flex-col gap-4 bg-black p-4 rounded-xl my-4'}>
+                            <div className={'flex flex-col gap-4 bg-slate-950 p-4 rounded-xl my-4'}>
                                 <Card className={'bg-transparent border-none'}>
                                     <CardHeader>
                                         <CardTitle className={'text-white'}> API Calls </CardTitle>
@@ -348,43 +337,6 @@ const Dashboard = () => {
                                     </div>
                                 </div>
 
-                                {/*<div className={'bg-black p-8 rounded-xl w-1/3 h-60'}>*/}
-                                {/*    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Category </p>*/}
-                                {/*    <div>*/}
-                                {/*        <Card className={'bg-transparent border-none'}>*/}
-                                {/*            <CardContent>*/}
-                                {/*                <ChartContainer config={chartConfigTopCat}>*/}
-                                {/*                    <BarChart*/}
-                                {/*                        accessibilityLayer*/}
-                                {/*                        data={chartDataTopCat}*/}
-                                {/*                        layout="vertical"*/}
-                                {/*                        margin={{*/}
-                                {/*                            left: 0,*/}
-                                {/*                        }}*/}
-                                {/*                    >*/}
-                                {/*                        <YAxis*/}
-                                {/*                            dataKey="browser"*/}
-                                {/*                            type="category"*/}
-                                {/*                            tickLine={false}*/}
-                                {/*                            tickMargin={10}*/}
-                                {/*                            axisLine={false}*/}
-                                {/*                            tickFormatter={(value) =>*/}
-                                {/*                                chartConfigTopCat[value as keyof typeof chartConfigTopCat]?.label*/}
-                                {/*                            }*/}
-                                {/*                        />*/}
-                                {/*                        <XAxis dataKey="visitors" type="number" hide/>*/}
-                                {/*                        <ChartTooltip*/}
-                                {/*                            cursor={false}*/}
-                                {/*                            content={<ChartTooltipContent hideLabel/>}*/}
-                                {/*                        />*/}
-                                {/*                        <Bar dataKey="visitors" layout="vertical" radius={5}/>*/}
-                                {/*                    </BarChart>*/}
-                                {/*                </ChartContainer>*/}
-                                {/*            </CardContent>*/}
-                                {/*        </Card>*/}
-                                {/*    </div>*/}
-                                {/*</div>*/}
-
                                 <div className={'bg-black p-8 rounded-xl w-1/3 h-60'}>
                                     <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Endpoints </p>
                                     <div>
@@ -423,7 +375,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            <div className={'flex flex-row gap-4 my-4 bg-black rounded-xl max-h-fit'}>
+                            <div className={'flex flex-row gap-4 my-4 bg-gray-950 rounded-xl max-h-fit'}>
                                 <Card className="flex flex-col bg-transparent border-none w-1/3">
                                     <CardHeader className="items-center pb-0">
                                         <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>Top
@@ -543,6 +495,119 @@ const Dashboard = () => {
                                         </ChartContainer>
                                     </CardContent>
                                 </Card>
+                            </div>
+
+                            <div className={'flex flex-row gap-4 my-4 bg-black rounded-xl max-h-fit'}>
+                                <div className={'bg-black p-8 rounded-xl w-1/3'}>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Nutrient </p>
+                                    <div>
+                                        <Card className={'bg-transparent border-none'}>
+                                            <CardContent>
+                                                <ChartContainer config={chartConfigTopCat}>
+                                                    <BarChart
+                                                        accessibilityLayer
+                                                        data={chartDataTopCat}
+                                                        layout="vertical"
+                                                        margin={{
+                                                            left: 0,
+                                                        }}
+                                                    >
+                                                        <YAxis
+                                                            dataKey="browser"
+                                                            type="category"
+                                                            tickLine={false}
+                                                            tickMargin={10}
+                                                            axisLine={false}
+                                                            tickFormatter={(value) =>
+                                                                chartConfigTopCat[value as keyof typeof chartConfigTopCat]?.label
+                                                            }
+                                                        />
+                                                        <XAxis dataKey="visitors" type="number" hide/>
+                                                        <ChartTooltip
+                                                            cursor={false}
+                                                            content={<ChartTooltipContent hideLabel/>}
+                                                        />
+                                                        <Bar dataKey="visitors" layout="vertical" radius={5}/>
+                                                    </BarChart>
+                                                </ChartContainer>
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </div>
+
+                                <div className={'bg-black p-8 rounded-xl w-1/3'}>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Origin </p>
+                                    <div>
+                                        <Card className={'bg-transparent border-none'}>
+                                            <CardContent>
+                                                <ChartContainer config={chartConfigTopCat}>
+                                                    <BarChart
+                                                        accessibilityLayer
+                                                        data={chartDataTopCat}
+                                                        layout="vertical"
+                                                        margin={{
+                                                            left: 0,
+                                                        }}
+                                                    >
+                                                        <YAxis
+                                                            dataKey="browser"
+                                                            type="category"
+                                                            tickLine={false}
+                                                            tickMargin={10}
+                                                            axisLine={false}
+                                                            tickFormatter={(value) =>
+                                                                chartConfigTopCat[value as keyof typeof chartConfigTopCat]?.label
+                                                            }
+                                                        />
+                                                        <XAxis dataKey="visitors" type="number" hide/>
+                                                        <ChartTooltip
+                                                            cursor={false}
+                                                            content={<ChartTooltipContent hideLabel/>}
+                                                        />
+                                                        <Bar dataKey="visitors" layout="vertical" radius={5}/>
+                                                    </BarChart>
+                                                </ChartContainer>
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </div>
+
+                                <div className={'bg-black p-8 rounded-xl w-1/3'}>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Allergy </p>
+                                    <div>
+                                        <Card className={'bg-transparent border-none'}>
+                                            <CardContent>
+                                                <ChartContainer config={chartConfigTopCat}>
+                                                    <BarChart
+                                                        accessibilityLayer
+                                                        data={chartDataTopCat}
+                                                        layout="vertical"
+                                                        margin={{
+                                                            left: 0,
+                                                        }}
+                                                    >
+                                                        <YAxis
+                                                            dataKey="browser"
+                                                            type="category"
+                                                            tickLine={false}
+                                                            tickMargin={10}
+                                                            axisLine={false}
+                                                            tickFormatter={(value) =>
+                                                                chartConfigTopCat[value as keyof typeof chartConfigTopCat]?.label
+                                                            }
+                                                        />
+                                                        <XAxis dataKey="visitors" type="number" hide/>
+                                                        <ChartTooltip
+                                                            cursor={false}
+                                                            content={<ChartTooltipContent hideLabel/>}
+                                                        />
+                                                        <Bar dataKey="visitors" layout="vertical" radius={5}/>
+                                                    </BarChart>
+                                                </ChartContainer>
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
