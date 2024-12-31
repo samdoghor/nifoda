@@ -3,7 +3,7 @@ import React from "react";
 interface LogoProps {
     'width': number,
     'height': number,
-    'fill': string,
+    'fill'?: string,
 }
 
 const NifodaLogo: React.FC<LogoProps> = ({width, height, fill}) => {

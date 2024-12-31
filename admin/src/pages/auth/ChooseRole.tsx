@@ -1,7 +1,5 @@
-import Header from "@/components/custom/Header.tsx";
 import {Form} from "@nextui-org/form";
 import {Button} from "@nextui-org/button";
-import Footer from "@/components/custom/Footer.tsx";
 import {HiChevronUpDown} from "react-icons/hi2";
 import {Select, SelectItem} from "@nextui-org/select";
 import React, {useEffect, useState} from "react";
@@ -53,10 +51,6 @@ const ChooseRole = () => {
 
     return (
         <>
-            <div className={'w-full flex flex-col justify-center items-center'}>
-                <Header/>
-            </div>
-
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black text-white py-8'}>
                 <div className={'w-2/4 text-center leading-relaxed tracking-widest text-sm'}>
                     <p> You can either signup as a contributor or a developer. </p>
@@ -94,10 +88,6 @@ const ChooseRole = () => {
                                 className={'w-full font-semibold text-base tracking-widest'}> Proceed </Button>
                     </Form>
                 </div>
-            </div>
-
-            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
-                <Footer/>
             </div>
         </>
     )

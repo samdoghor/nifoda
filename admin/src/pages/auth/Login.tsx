@@ -1,5 +1,3 @@
-import Header from "@/components/custom/Header";
-import Footer from "@/components/custom/Footer";
 import {Input} from "@nextui-org/input";
 import {Button} from "@nextui-org/button";
 import {Form} from "@nextui-org/form";
@@ -14,6 +12,9 @@ import {useAuthLogin} from "@/hooks/useAuthentication";
 import {IoIosEye, IoIosEyeOff} from "react-icons/io";
 import Cookies from "js-cookie";
 import {cookie_config} from "@/config/cookie_config";
+import {EncryptionUtil} from "@/pages/utils/CipherUtil.ts";
+
+const encryptedLoggedIn = EncryptionUtil(`${import.meta.env.VITE_LOGGED_IN}`);
 
 const Login = () => {
 
@@ -61,8 +62,11 @@ const Login = () => {
             })
             const token = dataLogin?.data?.token;
             Cookies.set('_nfdt', token, cookie_config)
+            Cookies.set('_nfdldi', encryptedLoggedIn, cookie_config)
             localStorage.setItem('_nfdt', token);
-            navigate("/account/dashboard");
+            localStorage.setItem('_nfdldi', encryptedLoggedIn);
+            navigate("/account/dashboard", { replace: true });
+            window.location.reload();
         }
 
         if (isErrorLogin) {
@@ -81,9 +85,6 @@ const Login = () => {
 
     return (
         <>
-            <div className={'w-full flex flex-col justify-center items-center'}>
-                <Header/>
-            </div>
             <div className={'w-full flex flex-col justify-center items-center min-h-screen bg-black py-20'}>
                 <div className={'bg-neutral-950 w-2/6 rounded-2xl flex flex-col p-10 border-gray-600 border'}>
                     <h3 className={'font-bold text-2xl tracking-widest text-white'}> Login </h3>
@@ -158,9 +159,6 @@ const Login = () => {
                         </p>
                     </div>
                 </div>
-            </div>
-            <div className={'w-full flex flex-col justify-center items-center bg-black'}>
-                <Footer/>
             </div>
         </>
     );
