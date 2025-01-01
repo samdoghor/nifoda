@@ -3,6 +3,10 @@ export interface AuthLoginType {
     password: string
 }
 
+export interface AuthLogoutType {
+    jwt_id: string | null
+}
+
 export interface ContributorCreateType {
     first_name: string
     last_name: string

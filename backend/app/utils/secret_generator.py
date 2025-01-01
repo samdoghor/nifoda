@@ -14,6 +14,7 @@ class SecretGenerator:
     """ service for managing roles """
 
     f_key = Fernet(config.fernet_key)
+    s_key = Fernet(config.shared_key)
 
     @staticmethod
     def api_key():
@@ -40,3 +41,11 @@ class SecretGenerator:
         plain_keys = SecretGenerator.f_key.decrypt(token).decode()
 
         return plain_keys
+
+    @staticmethod
+    def encrypt_email(email_address):
+        """Encrypt email address"""
+
+        secret_key = SecretGenerator.s_key.encrypt(email_address.encode())
+
+        return secret_key

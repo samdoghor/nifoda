@@ -5,7 +5,7 @@ this file holds the authentication service info
 
 # imports
 
-from flask import jsonify, request
+from flask import jsonify
 from flask_restful import Resource
 from flask_restful.reqparse import Argument
 
@@ -33,14 +33,14 @@ class AuthenticationService(Resource):
             if not email_address:
                 return jsonify({
                     "code": 400,
-                    "error_message": "bad request",
-                    "message": "email address is missing, you must supply one"
+                    "code_message": "bad request",
+                    "data": "email address is missing, you must supply one"
                 }), 400
 
             if not password:
                 return jsonify({
                     "code": 400,
-                    "error_message": "bad request",
+                    "code_message": "bad request",
                     "message": "password is missing, you must supply one"
                 }), 400
 
@@ -49,6 +49,40 @@ class AuthenticationService(Resource):
             user = LoginCredential(email_address, password)
 
             return AuthenticationRepository.login(user)
+
+        except ValueError as e:
+            return jsonify({
+                "code": 500,
+                'code_message': 'value error',
+                "data": f"an incorrect value was inputted: {str(e)}",
+            }), 500
+
+        except TypeError as e:
+            return jsonify({
+                "code": 500,
+                'code_message': 'type error',
+                "data": f"an incorrect datatype was inputted: {str(e)}",
+            }), 500
+
+    @staticmethod
+    @parse_params(
+        Argument("jwt_id", location="json", required=True),
+    )
+    def logout(jwt_id):
+        """basic logout"""
+
+        try:
+
+            if not jwt_id:
+                return jsonify({
+                    "code": 400,
+                    "code_message": "bad request",
+                    "data": "id is missing, contact developers"
+                }), 400
+
+            user = jwt_id
+
+            return AuthenticationRepository.logout(user)
 
         except ValueError as e:
             return jsonify({
