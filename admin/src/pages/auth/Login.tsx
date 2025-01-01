@@ -61,10 +61,12 @@ const Login = () => {
                 variant: 'default'
             })
             const token = dataLogin?.data?.token;
+            const identifier = dataLogin?.data?.identifier;
             Cookies.set('_nfdt', token, cookie_config)
             Cookies.set('_nfdldi', encryptedLoggedIn, cookie_config)
             localStorage.setItem('_nfdt', token);
             localStorage.setItem('_nfdldi', encryptedLoggedIn);
+            localStorage.setItem('_nfduidr', identifier);
             navigate("/account/dashboard", { replace: true });
             window.location.reload();
         }
