@@ -16,3 +16,4 @@ AuthenticationBlueprint = Blueprint("authentication", __name__)
 # routes
 
 AuthenticationBlueprint.route("/auth/login", methods=['POST'])(AuthenticationService.login)
+AuthenticationBlueprint.route("/auth/logout", methods=['POST'])(AuthenticationService.logout)

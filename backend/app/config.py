@@ -30,6 +30,7 @@ sqlalchemy_track_modifications = False
 
 secret_key = os.getenv("SECRET_KEY")
 fernet_key: str | None = os.getenv("FERNET_KEY")
+shared_key: str | None = os.getenv("SHARED_KEY")
 environment = os.getenv("ENVIRONMENT")
 api_application_root = os.getenv("API_APPLICATION_ROOT")
 application_host = os.getenv("APPLICATION_HOST")

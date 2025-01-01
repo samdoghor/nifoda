@@ -9,11 +9,11 @@ from flask_restful import Resource
 from psycopg2.errors import DataError, InternalError, OperationalError
 from sqlalchemy.exc import DBAPIError, DisconnectionError, ProgrammingError
 
-from ..value_objects import LoginCredential, PasswordCheck
+from ..value_objects import EmailCheck, LoginCredential, PasswordCheck
 from .... import config
-from ....infrastructure.models import ContributorModel, DeveloperModel
+from ....infrastructure.models import BlackListedTokenModel, ContributorModel, DeveloperModel
 from ....infrastructure.models.user_domain import AdminModel
-from ....utils import encode_auth_token
+from ....utils import SecretGenerator, encode_auth_token
 
 
 # imports
@@ -64,7 +64,7 @@ class AuthenticationRepository(Resource):
                                              config.login_exp,
                                              jti)
 
-            user_email._jwt_id = jti
+            user_email.jwt_id = jti
             user_email.save()
 
             return jsonify({
@@ -72,9 +72,61 @@ class AuthenticationRepository(Resource):
                 'code_message': 'successful',
                 'data': {
                     'data': f'{user_email.email_address}, logged in successfully',
+                    'identifier': user_email.jwt_id,
                     'token': access_token,
                     'expires': config.login_exp,
                 },
+            }), 200
+
+        except DataError:
+            return jsonify({
+                "code": 400,
+                'code_message': 'bad request',
+                "data": "this error is a datatype error",
+            }), 400
+
+        except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
+            return jsonify({
+                "code": 500,
+                'code_message': 'database error',
+                "data": "this error is a database error",
+            }), 500
+
+    @staticmethod
+    def logout(jwt_id):
+        """basic logout"""
+
+        try:
+
+            user = None
+            which_model = [AdminModel, ContributorModel, DeveloperModel]
+
+            for this_model in which_model:
+                user = this_model.query.filter_by(jwt_id=jwt_id).first()
+
+                if user:
+                    break
+
+            if user is None or not user:
+                return jsonify({
+                    "code": 404,
+                    'code_message': 'not found',
+                    "data": f"no account with {jwt_id.email_address} was found",
+                }), 404
+
+            # noinspection PyArgumentList
+            blacklist_token = BlackListedTokenModel(
+                jwt_id=user.jwt_id
+            )
+            blacklist_token.save()
+
+            user.jwt_id = None
+            user.save()
+
+            return jsonify({
+                'code': 200,
+                'code_message': 'successful',
+                'data': f'{user.email_address}, logged out successfully',
             }), 200
 
         except DataError:
