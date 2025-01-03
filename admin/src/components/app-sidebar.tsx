@@ -15,10 +15,11 @@ import NifodaLogo from "@/components/custom/NifodaLogo";
 import {MdDashboard} from "react-icons/md";
 import {GiPodiumWinner} from "react-icons/gi";
 import {PiBowlFoodFill} from "react-icons/pi";
-import {FaEnvelope, FaQuestionCircle} from "react-icons/fa";
+import {FaEnvelope} from "react-icons/fa";
 import {SiBookstack} from "react-icons/si";
 import {IoLogoBuffer} from "react-icons/io";
-import { Link } from "react-router";
+import {Link} from "react-router";
+import {RiKey2Fill} from "react-icons/ri";
 
 const data = {
     user: {
@@ -41,27 +42,28 @@ const items = [
     },
     {
         title: "Food Item",
-        url: "#",
+        url: "/account/fooditem",
         icon: PiBowlFoodFill,
     },
     {
         title: "Submission Status",
-        url: "#",
+        url: "/account/submission",
         icon: SiBookstack,
     },
     {
+        title: "API Key",
+        url: "/account/access",
+        icon: RiKey2Fill,
+    },
+    {
         title: "Logs",
-        url: "#",
+        url: "/account/logs",
         icon: IoLogoBuffer,
     },
-    {
-        title: "FAQ",
-        url: "#",
-        icon: FaQuestionCircle,
-    },
+
     {
         title: "Contact/Support",
-        url: "#",
+        url: "/account/contact",
         icon: FaEnvelope,
     },
 ]

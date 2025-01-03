@@ -12,7 +12,7 @@ import NifodaLogo from "@/components/custom/NifodaLogo";
 const Index = () => {
     return (
         <>
-            <div className={'w-full bg-black h-min py-14'}>
+            <div className={'w-full bg-black min-h-screen py-14'}>
                 <div className={'flex flex-col items-center justify-center'}>
                     <NifodaLogo width={150} height={150} fill={"#4ade80"}/>
                     <h1 className="text-5xl font-extrabold tracking-widest !leading-[0] text-white my-8">
