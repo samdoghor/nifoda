@@ -25,6 +25,9 @@ class FoodItemModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     food_item_status = db.Column(db.String(),
                                  default='pending_review',
                                  nullable=False)  # pending_review, approved, rejected, make_changes, deleted
+
+    image_id = db.Column(db.String(), nullable=False)
+    image = db.Column(db.String(), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
     updated_at = db.Column(db.DateTime, onupdate=datetime.now())
 

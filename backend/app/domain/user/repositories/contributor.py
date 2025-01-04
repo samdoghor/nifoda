@@ -118,7 +118,10 @@ class ContributorRepository(Resource):
             return jsonify({
                 'code': 200,
                 'code_message': 'successful',
-                'data': data
+                'data': {
+                    'count': len(data),
+                    'data': data
+                }
             }), 200
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
