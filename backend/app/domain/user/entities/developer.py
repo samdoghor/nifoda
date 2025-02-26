@@ -14,7 +14,7 @@ class DeveloperEntity:
     """
 
     def __init__(self, id: uuid4, first_name: str, last_name: str, middle_name: str | None, email_address: EmailCheck,
-                 password: PasswordCheck, secret_key: str, api_key: str, account_status: str, account_verified: bool,
+                 password: PasswordCheck, api_key: str, account_status: str, account_verified: bool,
                  role: uuid4, created_at: datetime | None, updated_at: datetime | None):
         self.id = id
         self.first_name = first_name
@@ -22,7 +22,6 @@ class DeveloperEntity:
         self.middle_name = middle_name
         self.email_address = email_address
         self.password = password
-        self.secret_key = secret_key
         self.api_key = api_key
         self.account_status = account_status  # unverifeid, active, blocked, deleted
         self.account_verified = account_verified

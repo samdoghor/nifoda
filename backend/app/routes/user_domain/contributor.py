@@ -17,6 +17,7 @@ ContributorBlueprint = Blueprint("contributor", __name__)
 
 ContributorBlueprint.route("/contributors", methods=['POST'])(ContributorService.create)
 ContributorBlueprint.route("/contributors", methods=['GET'])(ContributorService.read)
+ContributorBlueprint.route("/contributors/all", methods=['GET'])(ContributorService.contributor_count)
 ContributorBlueprint.route("/contributors/<uuid:id>", methods=['GET'])(ContributorService.fetch)
 ContributorBlueprint.route("/contributors/<uuid:id>", methods=['PUT'])(ContributorService.update)
 ContributorBlueprint.route("/contributors/<uuid:id>", methods=['DELETE'])(ContributorService.delete)

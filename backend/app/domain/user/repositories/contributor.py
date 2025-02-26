@@ -118,10 +118,7 @@ class ContributorRepository(Resource):
             return jsonify({
                 'code': 200,
                 'code_message': 'successful',
-                'data': {
-                    'count': len(data),
-                    'data': data
-                }
+                'data': data
             }), 200
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
@@ -257,6 +254,34 @@ class ContributorRepository(Resource):
                 'code': 200,
                 'code_message': 'successful',
                 'data': "account was deleted successfully"
+            }), 200
+
+        except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
+            return jsonify({
+                "code": 500,
+                'code_message': 'database error',
+                "data": "this error is a database error",
+            }), 500
+
+    @staticmethod
+    def contributor_count():
+        """ retrieves the number of contributors """
+
+        try:
+
+            contributors = ContributorModel.query.count()
+
+            if not contributors:
+                return jsonify({
+                    "code": 404,
+                    'code_message': 'not found',
+                    "data": "no contributor was found",
+                }), 404
+
+            return jsonify({
+                'code': 200,
+                'code_message': 'successful',
+                'data': contributors
             }), 200
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):

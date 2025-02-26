@@ -41,6 +41,8 @@ class AuthenticationRepository(Resource):
                 if user_email:
                     break
 
+            final_model = type(user_email).__name__.split('Model')[0].lower()
+
             if user_email is None or not user_email:
                 return jsonify({
                     "code": 404,
@@ -76,6 +78,7 @@ class AuthenticationRepository(Resource):
                     'identifier': f'{user_email.jwt_id}.{user_email.id}.{uuid4()}',
                     'token': access_token,
                     'expires': config.login_exp,
+                    'final_model': final_model,
                 },
             }), 200
 

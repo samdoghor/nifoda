@@ -45,7 +45,6 @@ class DeveloperService(Resource):
                 email_address=email_address,
                 password=password_check.password,
                 api_key="",
-                secret_key="",
                 account_status="unverifeid",
                 account_verified=False,
                 role=None,
@@ -119,6 +118,7 @@ class DeveloperService(Resource):
         Argument("middle_name", location="json"),
         Argument("email_address", location="json"),
         Argument("password", location="json"),
+        Argument("api_key", location="json"),
     )
     def update(id, **developer: DeveloperEntity):
         """ update one developer by id """
@@ -147,6 +147,28 @@ class DeveloperService(Resource):
 
         try:
             return DeveloperRepository.delete(id)
+
+        except ValueError:
+            return jsonify({
+                "code": 500,
+                'code_message': 'value error',
+                "data": "an incorrect value was inputted",
+            }), 500
+
+        except TypeError:
+            return jsonify({
+                "code": 500,
+                'code_message': 'type error',
+                "data": "an incorrect datatype was inputted",
+            }), 500
+
+    @staticmethod
+    def developer_count():
+        """ retrieves the number of developers """
+
+        try:
+
+            return DeveloperRepository.developer_count()
 
         except ValueError:
             return jsonify({
