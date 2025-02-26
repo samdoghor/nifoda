@@ -29,6 +29,10 @@ const userLoggedIn = localStorage.getItem("_nfdldi");
 const decryptedLoggedIn = userLoggedIn ? DecryptionUtil(userLoggedIn) : null;
 const userLoggedInC = Cookies.get("_nfdldi");
 const decryptedLoggedInC = userLoggedInC ? DecryptionUtil(userLoggedInC) : null;
+const sessionToken = localStorage.getItem("_nfdt");
+const sessionTokenC = Cookies.get("_nfdt");
+const userId = localStorage.getItem("_nfduidr");
+const userTrack = localStorage.getItem("_nfdusda");
 
 const MainRoute = () => {
     const navigate = useNavigate();
@@ -36,7 +40,8 @@ const MainRoute = () => {
 
     useEffect(() => {
         if (decryptedLoggedIn === `${import.meta.env.VITE_LOGGED_IN}` &&
-            decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}`) {
+            decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}` && sessionToken && sessionTokenC
+            && userId && userTrack) {
             if (!location.pathname.startsWith("/account")) {
                 navigate("/account/dashboard");
             }
@@ -52,7 +57,8 @@ const MainRoute = () => {
             <Suspense fallback={<SuspenseFallback />}>
                 <Routes>
                     {decryptedLoggedIn === `${import.meta.env.VITE_LOGGED_IN}` &&
-                    decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}` ? (
+                    decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}` && sessionToken && sessionTokenC
+                    && userId && userTrack ? (
                         <>
                             {/*Dashboard Routes*/}
                             <Route path="/account/dashboard" element={<Dashboard />} />

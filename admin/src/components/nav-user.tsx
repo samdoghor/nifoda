@@ -23,6 +23,8 @@ import {ErrorResponseData} from "@/data/types/axiosErrorRes.ts";
 import {Button} from "@nextui-org/button";
 import {Form} from "@nextui-org/form";
 import Cookies from "js-cookie";
+import {useFetchContributor} from "@/hooks/useContributor.ts";
+import {useFetchDeveloper} from "@/hooks/useDeveloper.ts";
 
 export function NavUser({
                             user,
@@ -47,7 +49,13 @@ export function NavUser({
 
     const {toast} = useToast()
 
-    const identifier = localStorage.getItem("_nfduidr");
+    let identifier = localStorage.getItem("_nfduidr");
+
+    if (identifier === null) {
+        identifier = null
+    } else {
+        identifier = identifier.split(".")[0]
+    }
 
     const formikLogout = useFormik({
         initialValues: {
@@ -73,6 +81,7 @@ export function NavUser({
             localStorage.removeItem('_nfdt');
             localStorage.removeItem('_nfdldi');
             localStorage.removeItem('_nfduidr');
+            localStorage.removeItem('_nfdusda');
             navigate("/", {replace: true});
             window.location.reload();
         }
@@ -89,6 +98,14 @@ export function NavUser({
         }
     }, [isSuccessLogout, isErrorLogout, dataLogout, errorLogout, toast, navigate]);
 
+    const {data: dataContributor} = useFetchContributor();
+    const dataOfContributor = dataContributor?.data
+
+    const {data: dataDeveloper} = useFetchDeveloper();
+    const dataOfDeveloper = dataDeveloper?.data
+
+    const userData = dataOfContributor ? dataOfContributor : dataOfDeveloper;
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -101,11 +118,11 @@ export function NavUser({
                             <Avatar className="h-8 w-8 rounded-lg">
                                 <AvatarImage src={user.avatar} alt={user.name}/>
                                 <AvatarFallback
-                                    className="rounded-lg bg-black border-white border-1">CN</AvatarFallback>
+                                    className="rounded-lg bg-black border-white border-1">{userData?.first_name[0]}{userData?.last_name[0]}</AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-semibold">{user.name}</span>
-                                <span className="truncate text-xs">{user.email}</span>
+                                <span className="truncate font-semibold">{userData?.first_name} {userData?.last_name}</span>
+                                <span className="truncate text-xs">{userData?.email_address}</span>
                             </div>
                             <ChevronsUpDown className="ml-auto size-4"/>
                         </SidebarMenuButton>
@@ -121,11 +138,11 @@ export function NavUser({
                                 <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage src={user.avatar} alt={user.name}/>
                                     <AvatarFallback
-                                        className="rounded-lg bg-black border-white border-1">CN</AvatarFallback>
+                                        className="rounded-lg bg-black border-white border-1">{userData?.first_name[0]}{userData?.last_name[0]}</AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                    <span className="truncate font-semibold">{user.name}</span>
-                                    <span className="truncate text-xs">{user.email}</span>
+                                    <span className="truncate font-semibold">{userData?.first_name} {userData?.last_name}</span>
+                                    <span className="truncate text-xs">{userData?.email_address}</span>
                                 </div>
                             </div>
                         </DropdownMenuLabel>
@@ -146,12 +163,10 @@ export function NavUser({
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator className={'border-1 border-neutral-800'}/>
                         <Form onSubmit={formikLogout.handleSubmit}>
-                            {/*<DropdownMenuItem className={'w-full !bg-none hover:!bg-none'}>*/}
-                                <Button size="sm" type={'submit'} className={'w-full'}>
-                                    <LogOut/>
-                                    Log out
-                                </Button>
-                            {/*</DropdownMenuItem>*/}
+                            <Button size="sm" type={'submit'} className={'w-full'}>
+                                <LogOut/>
+                                Log out
+                            </Button>
                         </Form>
                     </DropdownMenuContent>
                 </DropdownMenu>

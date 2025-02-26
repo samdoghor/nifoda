@@ -12,12 +12,13 @@ const Logs = () => {
                             <div>
                                 <GradualSpacing
                                     className="font-display text-center text-2xl font-bold tracking-tight text-white"
-                                    text="API Call Logs"
+                                    text="Live API Call Logs"
                                 />
                             </div>
 
                             <div className={'px-16'}>
-                                <ScrollShadow className={'max-h-[450px]'}>
+                                <ScrollShadow className={'max-h-[450px] overscroll-none'}>
+                                    <p>/api-v1/contributor</p>
                                 </ScrollShadow>
                             </div>
 
