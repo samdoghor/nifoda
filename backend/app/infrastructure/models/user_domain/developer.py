@@ -25,7 +25,6 @@ class DeveloperModel(db.Model, BaseModel, metaclass=MetaBaseModel):
     middle_name = db.Column(db.String(), nullable=True)
     email_address = db.Column(db.String(), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
-    secret_key = db.Column(db.String(), unique=True, nullable=False)
     api_key = db.Column(db.String(), unique=True, nullable=False)
     account_status = db.Column(db.String(),
                                default='unverifeid',

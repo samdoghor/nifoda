@@ -10,6 +10,8 @@ import {
     ChartTooltipContent,
 } from "@/components/ui/chart"
 import ReSideBar from "@/components/custom/ReSideBar";
+import {useReadCountContributor} from "@/hooks/useContributor.ts";
+import {useReadCountDeveloper} from "@/hooks/useDeveloper.ts";
 
 const chartData = [
     {month: "January", calls: 186},
@@ -153,6 +155,12 @@ const chartConfigReq = {
 
 const Dashboard = () => {
 
+    const {data: dataCountContributor} = useReadCountContributor();
+    const dataOfCountContributor = dataCountContributor?.data || 0
+
+    const {data: dataCountDeveloper} = useReadCountDeveloper();
+    const dataOfCountDeveloper = dataCountDeveloper?.data || 0
+
     return (
         <>
             <ReSideBar pageTitle={"Dashboard"}>
@@ -175,7 +183,7 @@ const Dashboard = () => {
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total
                                         Contributors </CardTitle>
                                     <CardContent className={'text-xl text-center pt-2'}>
-                                        22
+                                        {dataOfCountContributor}
                                     </CardContent>
                                     <CardFooter className={'text-xs text-gray-400 text-center'}> the total number of
                                         contributors in the
@@ -183,13 +191,13 @@ const Dashboard = () => {
                                 </Card>
                                 <Card className={'bg-indigo-900 rounded-xl text-white border-none w-1/4 pt-4'}>
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total
-                                        Active
-                                        Contributors </CardTitle>
+                                        Developers </CardTitle>
                                     <CardContent className={'text-xl text-center pt-2'}>
-                                        10
+                                        {dataOfCountDeveloper}
                                     </CardContent>
-                                    <CardFooter className={'text-xs text-gray-400 text-center'}> contributors
-                                        who added an item in the past 30 days </CardFooter>
+                                    <CardFooter className={'text-xs text-gray-400 text-center'}> the total number of
+                                        developers in the
+                                        database </CardFooter>
                                 </Card>
                                 <Card className={'bg-cyan-900 rounded-xl text-white border-none w-1/4 pt-4'}>
                                     <CardTitle className={'text-white text-sm text-center tracking-widest'}> Total API
@@ -264,7 +272,7 @@ const Dashboard = () => {
 
                             <div className={'flex flex-row gap-4 my-4'}>
                                 <div className={'bg-black p-8 rounded-xl w-1/3 h-60'}>
-                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Contributors </p>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Nutrients </p>
                                     <div>
                                         <Card className={'bg-transparent border-none'}>
                                             <CardContent>
@@ -301,7 +309,7 @@ const Dashboard = () => {
                                 </div>
 
                                 <div className={'bg-black p-8 rounded-xl w-1/3 h-60'}>
-                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Developers </p>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Groups </p>
                                     <div>
                                         <Card className={'bg-transparent border-none'}>
                                             <CardContent>
@@ -338,7 +346,7 @@ const Dashboard = () => {
                                 </div>
 
                                 <div className={'bg-black p-8 rounded-xl w-1/3 h-60'}>
-                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Endpoints </p>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Categories </p>
                                     <div>
                                         <Card className={'bg-transparent border-none'}>
                                             <CardContent>
@@ -375,75 +383,17 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
-                            <div className={'flex flex-row gap-4 my-4 bg-gray-950 rounded-xl max-h-fit'}>
-                                <Card className="flex flex-col bg-transparent border-none w-1/3">
+                            <div className={'flex flex-row gap-4 my-4 bg-indigo-950 rounded-xl justify-center items-center max-h-fit'}>
+                                <Card className="flex flex-col bg-transparent border-none w-full">
                                     <CardHeader className="items-center pb-0">
-                                        <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>Top
-                                            Locations</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex-1 pb-0">
-                                        <ChartContainer
-                                            config={chartConfigLoc}
-                                            className="mx-auto aspect-square h-64"
-                                        >
-                                            <PieChart>
-                                                <Pie data={chartDataLoc} dataKey="users">
-                                                    <LabelList
-                                                        dataKey="users"
-                                                        className="fill-white"
-                                                        stroke="none"
-                                                        fontSize={12}
-                                                        formatter={(value: number) => value.toLocaleString()}
-                                                    />
-                                                </Pie>
-                                                <ChartLegend
-                                                    content={<ChartLegendContent nameKey="location"/>}
-                                                    className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center text-white"
-                                                />
-                                            </PieChart>
-                                        </ChartContainer>
-                                    </CardContent>
-                                </Card>
-
-                                <Card className="flex flex-col bg-transparent border-none w-1/3">
-                                    <CardHeader className="items-center pb-0">
-                                        <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>Top
-                                            Browsers</CardTitle>
-                                    </CardHeader>
-                                    <CardContent className="flex-1 pb-0">
-                                        <ChartContainer
-                                            config={chartConfigDev}
-                                            className="mx-auto aspect-square h-64"
-                                        >
-                                            <PieChart>
-                                                <Pie data={chartDataDev} dataKey="visitors">
-                                                    <LabelList
-                                                        dataKey="browser"
-                                                        className="fill-white"
-                                                        stroke="none"
-                                                        fontSize={12}
-                                                        formatter={(value: number) => value.toLocaleString()}
-                                                    />
-                                                </Pie>
-                                                <ChartLegend
-                                                    content={<ChartLegendContent nameKey="browser"/>}
-                                                    className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center text-white"
-                                                />
-                                            </PieChart>
-                                        </ChartContainer>
-                                    </CardContent>
-                                </Card>
-
-                                <Card className="flex flex-col bg-transparent border-none w-1/3">
-                                    <CardHeader className="items-center pb-0">
-                                        <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>API
+                                        <CardTitle className={'text-white text-lg font-black tracking-widest'}>API
                                             Calls
                                             Status</CardTitle>
                                     </CardHeader>
                                     <CardContent className="flex-1 pb-0">
                                         <ChartContainer
                                             config={chartConfigReq}
-                                            className="mx-auto aspect-square max-h-[250px]"
+                                            className="mx-auto aspect-square max-h-[400px]"
                                         >
                                             <PieChart>
                                                 <ChartTooltip
@@ -454,7 +404,7 @@ const Dashboard = () => {
                                                     data={chartDataReq}
                                                     dataKey="calls"
                                                     nameKey="status"
-                                                    innerRadius={60}
+                                                    innerRadius={120}
                                                     strokeWidth={5}
                                                 >
                                                     <Label
@@ -497,9 +447,101 @@ const Dashboard = () => {
                                 </Card>
                             </div>
 
+                            <div className={'flex flex-row gap-4 my-4 bg-gray-950 rounded-xl max-h-fit'}>
+                                <Card className="flex flex-col bg-transparent border-none w-1/3">
+                                    <CardHeader className="items-center pb-0">
+                                        <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>Top
+                                            Countries</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-1 pb-0">
+                                        <ChartContainer
+                                            config={chartConfigDev}
+                                            className="mx-auto aspect-square h-64"
+                                        >
+                                            <PieChart>
+                                                <Pie data={chartDataDev} dataKey="visitors">
+                                                    <LabelList
+                                                        dataKey="browser"
+                                                        className="fill-white"
+                                                        stroke="none"
+                                                        fontSize={12}
+                                                        formatter={(value: number) => value.toLocaleString()}
+                                                    />
+                                                </Pie>
+                                                <ChartLegend
+                                                    content={<ChartLegendContent nameKey="browser"/>}
+                                                    className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center text-white"
+                                                />
+                                            </PieChart>
+                                        </ChartContainer>
+                                    </CardContent>
+                                    <CardFooter className={'text-xs text-gray-400 text-center flex justify-center'}> countries with more food items </CardFooter>
+                                </Card>
+
+                                <Card className="flex flex-col bg-transparent border-none w-1/3">
+                                    <CardHeader className="items-center pb-0">
+                                        <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>Top
+                                            Locations</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-1 pb-0">
+                                        <ChartContainer
+                                            config={chartConfigLoc}
+                                            className="mx-auto aspect-square h-64"
+                                        >
+                                            <PieChart>
+                                                <Pie data={chartDataLoc} dataKey="users">
+                                                    <LabelList
+                                                        dataKey="users"
+                                                        className="fill-white"
+                                                        stroke="none"
+                                                        fontSize={12}
+                                                        formatter={(value: number) => value.toLocaleString()}
+                                                    />
+                                                </Pie>
+                                                <ChartLegend
+                                                    content={<ChartLegendContent nameKey="location"/>}
+                                                    className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center text-white"
+                                                />
+                                            </PieChart>
+                                        </ChartContainer>
+                                    </CardContent>
+                                    <CardFooter className={'text-xs text-gray-400 text-center flex justify-center'}> states with more food items </CardFooter>
+                                </Card>
+
+                                <Card className="flex flex-col bg-transparent border-none w-1/3">
+                                    <CardHeader className="items-center pb-0">
+                                        <CardTitle className={'text-white text-sm font-semibold tracking-widest'}>Top
+                                            Tribes</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-1 pb-0">
+                                        <ChartContainer
+                                            config={chartConfigDev}
+                                            className="mx-auto aspect-square h-64"
+                                        >
+                                            <PieChart>
+                                                <Pie data={chartDataDev} dataKey="visitors">
+                                                    <LabelList
+                                                        dataKey="browser"
+                                                        className="fill-white"
+                                                        stroke="none"
+                                                        fontSize={12}
+                                                        formatter={(value: number) => value.toLocaleString()}
+                                                    />
+                                                </Pie>
+                                                <ChartLegend
+                                                    content={<ChartLegendContent nameKey="browser"/>}
+                                                    className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center text-white"
+                                                />
+                                            </PieChart>
+                                        </ChartContainer>
+                                    </CardContent>
+                                    <CardFooter className={'text-xs text-gray-400 text-center flex justify-center'}> tribes with more food items </CardFooter>
+                                </Card>
+                            </div>
+
                             <div className={'flex flex-row gap-4 my-4 bg-black rounded-xl max-h-fit'}>
                                 <div className={'bg-black p-8 rounded-xl w-1/3'}>
-                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Nutrient </p>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Sources </p>
                                     <div>
                                         <Card className={'bg-transparent border-none'}>
                                             <CardContent>
@@ -536,7 +578,7 @@ const Dashboard = () => {
                                 </div>
 
                                 <div className={'bg-black p-8 rounded-xl w-1/3'}>
-                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Origin </p>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Classes </p>
                                     <div>
                                         <Card className={'bg-transparent border-none'}>
                                             <CardContent>
@@ -573,7 +615,7 @@ const Dashboard = () => {
                                 </div>
 
                                 <div className={'bg-black p-8 rounded-xl w-1/3'}>
-                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Allergy </p>
+                                    <p className={'text-sm font-semibold tracking-widest mb-4'}> Top Food Allergies </p>
                                     <div>
                                         <Card className={'bg-transparent border-none'}>
                                             <CardContent>

@@ -1,7 +1,7 @@
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import { lazy, Suspense, useEffect } from "react";
-import SuspenseFallback from "@/pages/utils/SuspenseFallback.tsx";
-import { DecryptionUtil } from "@/pages/utils/CipherUtil.ts";
+import SuspenseFallback from "@/pages/utils/SuspenseFallback";
+import { DecryptionUtil } from "@/pages/utils/CipherUtil";
 import Cookies from "js-cookie";
 
 // Static Routes
@@ -18,11 +18,21 @@ const ForgotPassword = lazy(() => import("@/pages/auth/ForgotPassword.tsx"));
 
 // Dashboard Routes
 const Dashboard = lazy(() => import("@/pages/account/Dashboard"));
+const LeaderBoard = lazy(() => import("@/pages/account/LeaderBoard"));
+const FoodItem = lazy(() => import("@/pages/account/FoodItem"));
+const SubmissionStatus = lazy(() => import("@/pages/account/SubmissionStatus"));
+const Logs = lazy(() => import("@/pages/account/Logs"));
+const APIKey = lazy(() => import("@/pages/account/APIKey"));
+const Contact = lazy(() => import("@/pages/account/Contact"));
 
 const userLoggedIn = localStorage.getItem("_nfdldi");
 const decryptedLoggedIn = userLoggedIn ? DecryptionUtil(userLoggedIn) : null;
 const userLoggedInC = Cookies.get("_nfdldi");
 const decryptedLoggedInC = userLoggedInC ? DecryptionUtil(userLoggedInC) : null;
+const sessionToken = localStorage.getItem("_nfdt");
+const sessionTokenC = Cookies.get("_nfdt");
+const userId = localStorage.getItem("_nfduidr");
+const userTrack = localStorage.getItem("_nfdusda");
 
 const MainRoute = () => {
     const navigate = useNavigate();
@@ -30,7 +40,8 @@ const MainRoute = () => {
 
     useEffect(() => {
         if (decryptedLoggedIn === `${import.meta.env.VITE_LOGGED_IN}` &&
-            decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}`) {
+            decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}` && sessionToken && sessionTokenC
+            && userId && userTrack) {
             if (!location.pathname.startsWith("/account")) {
                 navigate("/account/dashboard");
             }
@@ -46,10 +57,17 @@ const MainRoute = () => {
             <Suspense fallback={<SuspenseFallback />}>
                 <Routes>
                     {decryptedLoggedIn === `${import.meta.env.VITE_LOGGED_IN}` &&
-                    decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}` ? (
+                    decryptedLoggedInC === `${import.meta.env.VITE_LOGGED_IN}` && sessionToken && sessionTokenC
+                    && userId && userTrack ? (
                         <>
                             {/*Dashboard Routes*/}
                             <Route path="/account/dashboard" element={<Dashboard />} />
+                            <Route path="/account/leaderboard" element={<LeaderBoard />} />
+                            <Route path="/account/fooditem" element={<FoodItem />} />
+                            <Route path="/account/submission" element={<SubmissionStatus />} />
+                            <Route path="/account/logs" element={<Logs />} />
+                            <Route path="/account/access" element={<APIKey />} />
+                            <Route path="/account/contact" element={<Contact />} />
                         </>
                     ) : (
                         <>

@@ -159,3 +159,25 @@ class ContributorService(Resource):
                 'code_message': 'type error',
                 "data": "an incorrect datatype was inputted",
             }), 500
+
+    @staticmethod
+    def contributor_count():
+        """ retrieves the number of contributors """
+
+        try:
+
+            return ContributorRepository.contributor_count()
+
+        except ValueError:
+            return jsonify({
+                "code": 500,
+                'code_message': 'value error',
+                "data": "an incorrect value was inputted",
+            }), 500
+
+        except TypeError:
+            return jsonify({
+                "code": 500,
+                'code_message': 'type error',
+                "data": "an incorrect datatype was inputted",
+            }), 500

@@ -3,17 +3,18 @@ app/domain/repositories/authentication.py
 this file holds the authentication repository info
 """
 import secrets
+from uuid import uuid4
 
 from flask import jsonify
 from flask_restful import Resource
 from psycopg2.errors import DataError, InternalError, OperationalError
 from sqlalchemy.exc import DBAPIError, DisconnectionError, ProgrammingError
 
-from ..value_objects import EmailCheck, LoginCredential, PasswordCheck
+from ..value_objects import LoginCredential, PasswordCheck
 from .... import config
 from ....infrastructure.models import BlackListedTokenModel, ContributorModel, DeveloperModel
 from ....infrastructure.models.user_domain import AdminModel
-from ....utils import SecretGenerator, encode_auth_token
+from ....utils import encode_auth_token
 
 
 # imports
@@ -39,6 +40,8 @@ class AuthenticationRepository(Resource):
 
                 if user_email:
                     break
+
+            final_model = type(user_email).__name__.split('Model')[0].lower()
 
             if user_email is None or not user_email:
                 return jsonify({
@@ -72,9 +75,10 @@ class AuthenticationRepository(Resource):
                 'code_message': 'successful',
                 'data': {
                     'data': f'{user_email.email_address}, logged in successfully',
-                    'identifier': user_email.jwt_id,
+                    'identifier': f'{user_email.jwt_id}.{user_email.id}.{uuid4()}',
                     'token': access_token,
                     'expires': config.login_exp,
+                    'final_model': final_model,
                 },
             }), 200
 

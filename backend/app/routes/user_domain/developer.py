@@ -17,6 +17,7 @@ DeveloperBlueprint = Blueprint("developer", __name__)
 
 DeveloperBlueprint.route("/developers", methods=['POST'])(DeveloperService.create)
 DeveloperBlueprint.route("/developers", methods=['GET'])(DeveloperService.read)
+DeveloperBlueprint.route("/developers/all", methods=['GET'])(DeveloperService.developer_count)
 DeveloperBlueprint.route("/developers/<uuid:id>", methods=['GET'])(DeveloperService.fetch)
 DeveloperBlueprint.route("/developers/<uuid:id>", methods=['PUT'])(DeveloperService.update)
 DeveloperBlueprint.route("/developers/<uuid:id>", methods=['DELETE'])(DeveloperService.delete)

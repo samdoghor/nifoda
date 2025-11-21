@@ -67,6 +67,7 @@ const Login = () => {
             localStorage.setItem('_nfdt', token);
             localStorage.setItem('_nfdldi', encryptedLoggedIn);
             localStorage.setItem('_nfduidr', identifier);
+            localStorage.setItem('_nfdusda', dataLogin?.data?.final_model);
             navigate("/account/dashboard", { replace: true });
             window.location.reload();
         }

@@ -49,7 +49,6 @@ class DeveloperRepository(Resource):
             # create new developer account
 
             api_key = SecretGenerator.api_key().decode('utf-8')
-            secret_key = SecretGenerator.secret_key().decode('utf-8')
 
             # noinspection PyArgumentList
             new_developer = DeveloperModel(
@@ -58,7 +57,6 @@ class DeveloperRepository(Resource):
                 middle_name=developer.middle_name,
                 email_address=developer.email_address,
                 password=developer.password,
-                secret_key=secret_key,
                 api_key=api_key,
                 role=role.id
             )
@@ -112,7 +110,6 @@ class DeveloperRepository(Resource):
                     'last_name': developer.last_name,
                     'middle_name': developer.middle_name,
                     'email_address': developer.email_address,
-                    'secret_key': developer.secret_key,
                     'api_key': SecretGenerator.verify_key(developer.api_key),
                     'account_status': developer.account_status,
                     'account_verified': developer.account_verified,
@@ -156,7 +153,6 @@ class DeveloperRepository(Resource):
                 'last_name': developer.last_name,
                 'middle_name': developer.middle_name,
                 'email_address': developer.email_address,
-                'secret_key': developer.secret_key,
                 'api_key': SecretGenerator.verify_key(developer.api_key),
                 'account_status': developer.account_status,
                 'account_verified': developer.account_verified,
@@ -211,6 +207,9 @@ class DeveloperRepository(Resource):
                 password_check = PasswordCheck(password)
                 developer.password = password_check.password
 
+            if 'api_key' in args and args['api_key'] is not None:
+                developer.api_key = SecretGenerator.api_key().decode('utf-8')
+
             developer.save()
 
             data = {
@@ -219,7 +218,6 @@ class DeveloperRepository(Resource):
                 'last_name': developer.last_name,
                 'middle_name': developer.middle_name,
                 'email_address': developer.email_address,
-                'secret_key': developer.secret_key,
                 'api_key': SecretGenerator.verify_key(developer.api_key),
                 'account_status': developer.account_status,
                 'account_verified': developer.account_verified,
@@ -266,6 +264,34 @@ class DeveloperRepository(Resource):
                 'code': 200,
                 'code_message': 'successful',
                 'data': "account was deleted successfully"
+            }), 200
+
+        except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
+            return jsonify({
+                "code": 500,
+                'code_message': 'database error',
+                "data": "this error is a database error",
+            }), 500
+
+    @staticmethod
+    def developer_count():
+        """ """
+
+        try:
+
+            developers = DeveloperModel.query.count()
+
+            if not developers:
+                return jsonify({
+                    "code": 404,
+                    'code_message': 'not found',
+                    "data": "no developer was found",
+                }), 404
+
+            return jsonify({
+                'code': 200,
+                'code_message': 'successful',
+                'data': developers
             }), 200
 
         except (ProgrammingError, DBAPIError, DisconnectionError, InternalError, OperationalError):
